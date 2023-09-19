@@ -1,25 +1,44 @@
-# Projet Developpement Web: Trail Running Shoes
+# 🛜 Projet Developpement Web: Trail Running Shoes
 
-##  Description
+## 👟 Description
 
 Trail Running Shoes (TRS) is a community based website rencensing (lttlab)
 
-## 🛜 Step-by-step Description
+|           | Trail Runner |
+|-----------|--------------|
+| Object    |  Trail Shoes |
+| Inventory |   Cupboard   |
+| Galerie   |              |
+
+## 📝 Step-by-step Description
 
 ### Step 1: New Symfony Project
-    1. Read technical specifications
-    2. Choose domain
-    3. Initialise working directory
-    4. Create new Symfony project
+- [x] Read technical specifications
+- [x] Choose domain
+- [x] Initialise working directory
+- [x] Create new Symfony project
 
 ### Step 2: First Entities
-    1. 
+- [x] Prepare to add first entities
+- [x] Add object (*Shoes*) and inventory (*Cupboard*) entities to data model
+- [x] Add test data
 
 ### Step 3:
 ### Step 4:
 ### Step 5:
 
-## To Do List
+## Useful Commands (for developpement purpose...)
+
+1. Create Database
+> symfony console doctrine:database:create
+> symfony console doctrine:schema:create --dump-sql
+> symfony console doctrine:schema:create
+2. Update Database
+> symfony console doctrine:schema:update
+3. Delete Database
+> symfony console doctrine:database:drop --force
+1. Load Data Fixtures
+> symfony console doctrine:fixtures:load -n
 
 ## 👤 Author
 - Fabien ALLEMAND
