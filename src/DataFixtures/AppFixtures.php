@@ -12,6 +12,7 @@ class AppFixtures extends Fixture
     // Defines reference names for instances of Cupboard
     private const TEST_CUPBOARD_1 = 'test-cupboard-1';
     private const TEST_CUPBOARD_2 = 'test-cupboard-2';
+    private const SMELLY_CUPBOARD = 'smelly-cupboard';
 
     /**
      * Generates initialization data for cupboards : [title, cupboard_reference]
@@ -21,6 +22,8 @@ class AppFixtures extends Fixture
     {
         yield ["Test Cupboard 1", self::TEST_CUPBOARD_1];
         yield ["Test Cupboard 2", self::TEST_CUPBOARD_2];
+
+        yield ["Smelly Cupboard", self::SMELLY_CUPBOARD];
     }
 
     /**
@@ -29,8 +32,14 @@ class AppFixtures extends Fixture
      */
     private static function getShoesData()
     {
-        yield ["Kalenji", "", self::TEST_CUPBOARD_1];
-        yield ["Asics", "Tarbuco 11", self::TEST_CUPBOARD_1];
+        yield ["Test Brand 1", "", self::TEST_CUPBOARD_1];
+        yield ["Test Brand 2", "Model 1", self::TEST_CUPBOARD_1];
+
+        yield ["Kalenji", "Run Active", self::SMELLY_CUPBOARD];
+        yield ["Kalenji", "kiprun XT7", self::SMELLY_CUPBOARD];
+        yield ["Asics", "Gel-tarbuco 11", self::SMELLY_CUPBOARD];
+        yield ["Quechua", "", self::SMELLY_CUPBOARD];
+        yield ["Salomon", "X Ultra Mid 3 GTX", self::SMELLY_CUPBOARD];
     }
 
     public function load(ObjectManager $manager)
