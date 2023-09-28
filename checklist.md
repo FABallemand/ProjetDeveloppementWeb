@@ -138,7 +138,7 @@
 <td class="org-left">ajout d'une interface EasyAdmin dans le <i>back-office</i> avec les 2 contrôleurs CRUD [inventaire] et [objet]</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP 3/4</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 
 <tr>
@@ -146,7 +146,7 @@
 <td class="org-left">- CRUD [inventaire]</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 
 <tr>
@@ -154,7 +154,7 @@
 <td class="org-left">- CRUD [objet]</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 
 <tr>

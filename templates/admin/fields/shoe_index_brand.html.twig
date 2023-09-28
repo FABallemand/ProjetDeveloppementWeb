@@ -1,0 +1,17 @@
+{%- set url = ea_url()
+    .setController('App\\Controller\\Admin\\ShoeCrudController')
+    .setAction('detail')
+    .setEntityId(entity.instance.id)
+-%}
+{% set action = app.request.attributes.get('_controller')[1] %}
+{% if action == 'detail' %}
+    {{ field.value }}
+{% else %}
+	<a href="{{ url }}">
+		{% if entity.instance.brand == 'Asics' %}
+			<div style="color:#001E63;background-color:white;">{{ field.value }}</div>
+		{%  else %}
+            {{ field.value }}
+        {% endif %}
+ 	</a>
+ {% endif %}

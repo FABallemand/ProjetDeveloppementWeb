@@ -28,9 +28,9 @@ All athletes can easily display their favorite (or worst) shoes on a special she
 - [x] Add test data
 
 ### Step 3: EasyAdmin interface & CRUD controllers
-- [ ] Add main CRUD controller
-- [ ] Add inventory (**Cupboard**) CRUD controller
-- [ ] Add object (**Shoe**) CRUD controller
+- [x] Add main CRUD controller
+- [x] Add inventory (**Cupboard**) CRUD controller
+- [x] Add object (**Shoe**) CRUD controller
 
 ### Step 4: Add Member Entity
 - [ ] Add member (**Runner**) entity
@@ -108,18 +108,65 @@ All athletes can easily display their favorite (or worst) shoes on a special she
 
 ### Step 23: Have fun !!
 
+## 🔗 Useful Links
+- [Symfony Documentation](https://symfony.com/doc/current/index.html)
+- [Symfony Documentation: Databases and the Doctrine ORM](https://symfony.com/doc/current/doctrine.html)
+- [Doctrine ORM Documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.16/index.html)
+
 ## ⌨️ Useful Commands (for developpement purpose...)
 
-1. Create Database
-> symfony console doctrine:database:create
-> symfony console doctrine:schema:create --dump-sql
-> symfony console doctrine:schema:create
-2. Update Database
-> symfony console doctrine:schema:update
-3. Delete Database
-> symfony console doctrine:database:drop --force
-1. Load Data Fixtures
-> symfony console doctrine:fixtures:load -n
+1. Symfony version
+```bash
+symfony console -V
+```
+2. List available Symfony commands
+```bash
+symfony console list
+symfony console list app
+```
+3. Informations related to the environment
+```bash
+symfony console about
+```
+4. Help
+```bash
+symfony console help [command]
+```
+5. Create Database
+```bash
+symfony console doctrine:database:create
+symfony console doctrine:schema:create --dump-sql
+symfony console doctrine:schema:create
+```
+6. Update Database
+```bash
+symfony console doctrine:schema:update
+```
+7. Delete Database
+```bash
+symfony console doctrine:database:drop --force
+```
+8. Load Data Fixtures
+```bash
+symfony console doctrine:fixtures:load -n
+```
+9. Access Symfony logs
+```bash
+tail -f var/log/dev.log # doctrine.DEBUG tags
+```
+10.  Clear Symfony project
+```bash
+symfony console cache:clear
+rm -fr .project .settings/
+```
+## 📋 Notes
+- Create and link entities -> TP2
+- Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
+- Command arguments (list by year, unique...) -> TA1
+- Orphan removal -> TA1
+- TODO Custom EasyAdmin (mini-allocine?) (shoes dashboard??)
+- TODO Add useful commands -> TP2
+- Can a shoe live outside a cupboard?? private ?Cupboard $cupboard = null;
 
 ## 👤 Author
 - Fabien ALLEMAND
