@@ -1,10 +1,9 @@
 # 🛜 Projet Developpement Web: Trail Running Shoes
 
 ## 👟 Description
+As a trail runner I really want to know the best shoes to buy. In order to perform an educated purchase I need to know what each model feels on the long run: How light are the shoes? Are they comfortable? Do they have a good grip? On rock? On dirt? What about rainning conditions? Will my ankle feel supported? Which size should I get?
 
-Trail Running Shoes (TRS) is a community based website rencensing relevant data about trail running shoes.  
-Athletes can share feedbacks, feelings or technical details about the shoes they own (and store in a cupboard) and browse the thoughts of other trail runners about other running sneackers.  
-All athletes can easily display their favorite (or worst) shoes on a special shelf.
+Trail Running Shoes (TRS) is a community based website rencensing relevant data about trail running shoes. Athletes can share feedbacks, feelings or technical details about the shoes they own (and store in a cupboard) and browse the thoughts of other trail runners about other running sneackers. All athletes can easily display their favorite (or worst) shoes on a special shelf.
 
 |           |       Trail Runner        |
 |-----------|---------------------------|
@@ -12,9 +11,8 @@ All athletes can easily display their favorite (or worst) shoes on a special she
 | Inventory |  Cupboard (**Cupboard**)  |
 | Galerie   |     Shelf (**Shelf**)     |
 
-TODO: Table for each entity or UML diagram
-
 ## 📝 Step-by-step Description
+See *CHECKLIST.md* for more details.
 
 ### Step 1: New Symfony Project
 - [x] Read technical specifications
@@ -170,9 +168,13 @@ rm -fr .project .settings/
 - TODO Custom EasyAdmin
 - TODO Add useful commands -> TP2
 - Can a shoe live outside a cupboard?? private ?Cupboard $cupboard = null;
-- Add/update CRUD controller & datafixtures for Member entity
+- Check datafixture code
 - Unify docstrings
-- Add motiviation, UML and versions in README
+- Add motiviation, UML in README
+
+## ⚙️ About
+- php v8.1.2
+- Symfony v6.3.4
 
 ## 👤 Author
 - Fabien ALLEMAND
