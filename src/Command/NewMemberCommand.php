@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\Entity\Cupboard;
-use App\Entity\CupboardRepository;
+use App\Entity\Member;
+use App\Entity\MemberRepository;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -15,18 +15,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * Command NewCupboard
+ * Command NewMember
  */
 #[AsCommand(
-    name: 'app:new-cupboard',
-    description: 'Create a new cupboard',
+    name: 'app:new-member',
+    description: 'Create a new member',
 )]
-class NewCupboardCommand extends Command
+class NewMemberCommand extends Command
 {
     /**
-     *  @var CupboardRepository data access repository
+     *  @var MemberRepository data access repository
      */
-    private $cupboardRepository;
+    private $memberRepository;
 
     /**
      * Plugs the database to the command
@@ -35,7 +35,7 @@ class NewCupboardCommand extends Command
      */
     public function __construct(ManagerRegistry $doctrineManager)
     {
-        $this->cupboardRepository = $doctrineManager->getRepository(Cupboard::class);
+        $this->memberRepository = $doctrineManager->getRepository(Member::class);
 
         parent::__construct();
     }
@@ -43,24 +43,28 @@ class NewCupboardCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setHelp('This command allows you to create a cupboard')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the cupboard');
+            ->setHelp('This command allows you to create a member')
+            ->addArgument('name', InputArgument::REQUIRED, 'The name of the memeber')
+            ->addArgument('age', InputArgument::OPTIONAL, 'The age of the memeber');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
-        $cupboard = new Cupboard();
-        $cupboard->setName($input->getArgument('name'));
+        $member = new Member();
+        $member->setName($input->getArgument('name'));
+        if ($input->getArgument('age')) {
+            $member->setAge($input->getArgument('age'));
+        }
 
-        $this->cupboardRepository->save($cupboard, true);
+        $this->memberRepository->save($member, true);
 
-        if ($cupboard->getId()) {
-            $io->text('Created: ' . $cupboard);
+        if ($member->getId()) {
+            $io->text('Created: ' . $member);
             return Command::SUCCESS;
         } else {
-            $io->error('could not create cupboard!');
+            $io->error('could not create member!');
             return Command::FAILURE;
         }
     }

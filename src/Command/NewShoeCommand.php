@@ -14,6 +14,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * Command NewShoe
+ */
 #[AsCommand(
     name: 'app:new-shoe',
     description: 'Create a new shoe',
@@ -41,8 +44,8 @@ class NewShoeCommand extends Command
     {
         $this
             ->setHelp('This command allows you to create a shoe')
-            ->addArgument('brand', InputArgument::REQUIRED, 'The name of the shoe brand.')
-            ->addArgument('model', InputArgument::REQUIRED, 'The name of the shoe model.');
+            ->addArgument('brand', InputArgument::REQUIRED, 'The name of the shoe brand')
+            ->addArgument('model', InputArgument::REQUIRED, 'The name of the shoe model');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

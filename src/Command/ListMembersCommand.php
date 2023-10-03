@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\Entity\Cupboard;
-use App\Repository\CupboardRepository;
+use App\Entity\Member;
+use App\Repository\MemberRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,18 +14,18 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * Command ListCupboards
+ * Command ListMembers
  */
 #[AsCommand(
-    name: 'app:list-cupboards',
-    description: 'List the cupboards',
+    name: 'app:list-members',
+    description: 'List the members',
 )]
-class ListCupboardsCommand extends Command
+class ListMembersCommand extends Command
 {
     /**
-     *  @var CupboardRepository data access repository
+     *  @var MemberRepository data access repository
      */
-    private $cupboardRepository;
+    private $memberRepository;
 
     /**
      * Plugs the database to the command
@@ -34,15 +34,15 @@ class ListCupboardsCommand extends Command
      */
     public function __construct(ManagerRegistry $doctrineManager)
     {
-        $this->cupboardRepository = $doctrineManager->getRepository(Cupboard::class);
-
+        $this->memberRepository = $doctrineManager->getRepository(Member::class);
+        
         parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
-            ->setHelp('This command allows you to list the cupboards');
+            ->setHelp('This command allows you to list the members');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -50,13 +50,13 @@ class ListCupboardsCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         // Fetches all instances of class Cupboard from the DB
-        $cupboards = $this->cupboardRepository->findAll();
-        //dump($cupboards);
-        if (!empty($cupboards)) {
-            $io->title('List of cupboards:');
-            $io->listing($cupboards);
+        $members = $this->memberRepository->findAll();
+        //dump($members);
+        if (!empty($members)) {
+            $io->title('List of members:');
+            $io->listing($members);
         } else {
-            $io->error('No cupboards found!');
+            $io->error('No members found!');
             return Command::FAILURE;
         }
         return Command::SUCCESS;

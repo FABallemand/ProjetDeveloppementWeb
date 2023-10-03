@@ -12,6 +12,8 @@ All athletes can easily display their favorite (or worst) shoes on a special she
 | Inventory |  Cupboard (**Cupboard**)  |
 | Galerie   |     Shelf (**Shelf**)     |
 
+TODO: Table for each entity or UML diagram
+
 ## 📝 Step-by-step Description
 
 ### Step 1: New Symfony Project
@@ -33,8 +35,9 @@ All athletes can easily display their favorite (or worst) shoes on a special she
 - [x] Add object (**Shoe**) CRUD controller
 
 ### Step 4: Add Member Entity
-- [ ] Add member (**Runner**) entity
-- [ ] Add member-inventory link
+- [x] Add member (**Member**) entity
+- [x] Add member-inventory link
+- [x] Add member (**Member**) CRUD controller
 
 ### Step 5: First Public Pages
 - [ ] Add inventory (**Cupboard**) controller
@@ -164,9 +167,12 @@ rm -fr .project .settings/
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
-- TODO Custom EasyAdmin (mini-allocine?) (shoes dashboard??)
+- TODO Custom EasyAdmin
 - TODO Add useful commands -> TP2
 - Can a shoe live outside a cupboard?? private ?Cupboard $cupboard = null;
+- Add/update CRUD controller & datafixtures for Member entity
+- Unify docstrings
+- Add motiviation, UML and versions in README
 
 ## 👤 Author
 - Fabien ALLEMAND

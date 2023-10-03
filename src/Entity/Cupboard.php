@@ -24,8 +24,18 @@ class Cupboard
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    /**
+     * @var Collection Shoes stored inside the cupboard
+     */
     #[ORM\OneToMany(mappedBy: 'cupboard', targetEntity: Shoe::class, cascade: ['persist'])]
     private Collection $shoes;
+
+    /**
+     * @var Member Cupboard owner
+     */
+    #[ORM\ManyToOne(inversedBy: 'cupboards')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Member $member = null;
 
     public function __construct()
     {
@@ -86,6 +96,18 @@ class Cupboard
                 $shoe->setCupboard(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(?Member $member): static
+    {
+        $this->member = $member;
 
         return $this;
     }

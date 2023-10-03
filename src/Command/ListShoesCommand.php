@@ -51,7 +51,7 @@ class ListShoesCommand extends Command
 
         // Fetches all instances of class Shoes from the DB
         $shoes = $this->shoeRepository->findAll();
-        //dump($todos);
+        //dump($shoes);
         if(!empty($shoes)) {
             $io->title('List of shoes:');
             $io->listing($shoes);
