@@ -50,7 +50,7 @@ See *CHECKLIST.md* for more details.
 - [x] Improve administration board
 
 ### Step 8: Current Entities Administration Board
-- [ ] ...
+- [x] Add CRUD controller for all entities
 
 ### Step 9: Pages Gabarits & Front-Office Display
 - [ ] Add display of an object (**Shoe**) inside an inventory (**Cupboard**) in the front-office

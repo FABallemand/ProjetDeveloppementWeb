@@ -25,6 +25,7 @@ class CupboardCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name')->setTemplatePath('admin/fields/cupboard_index_name.html.twig'),
             AssociationField::new('shoes'),
+            AssociationField::new('member'),
         ];
     }
 
