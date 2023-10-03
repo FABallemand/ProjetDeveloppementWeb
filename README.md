@@ -44,10 +44,10 @@ See *CHECKLIST.md* for more details.
 - [x] Add link to browse in the displayed list of inventories (**Cupboard**)
 
 ### Step 6: OneToMany Relations Administration Board
-- [ ] Add administration table for OneToMany relations
+- [x] Add administration table for OneToMany relations
 
 ### Step 7: Administration Board Improvements
-- [ ] ...
+- [x] Improve administration board
 
 ### Step 8: Current Entities Administration Board
 - [ ] ...
