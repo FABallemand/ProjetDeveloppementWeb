@@ -56,8 +56,8 @@ See *CHECKLIST.md* for more details.
 - [x] Add display of an object (**Shoe**) inside an inventory (**Cupboard**) in the front-office
 
 ### Step 10: Back-Office Display
-- [ ] Add page to display inventory (**Cupboard**)
-- [ ] Add list of the entities in the page
+- [x] Add page to display inventory (**Cupboard**)
+- [x] Add list of the entities in the page
 
 ### Step 11: CSS
 - [ ] Download and integrate Bootstrp in templates
