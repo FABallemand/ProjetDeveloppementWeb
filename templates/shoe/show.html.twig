@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shoe {{ shoe.id }}{% endblock %}
+
+{% block body %}
+<h1>Shoe {{ shoe.id }}</h1>
+
+{% dump shoe %}
+{{ dump(shoe) }}
+
+<!-- <table class="table">
+    <tbody>
+        <tr>
+            <th>ID</th>
+            <td>{{ shoe.id }}</td>
+        </tr>
+        <tr>
+            <th>Brand</th>
+            <td>{{ shoe.brand }}</td>
+        </tr>
+        <tr>
+            <th>Model</th>
+            <td>{{ shoe.model }}</td>
+        </tr>
+    </tbody>
+</table> -->
+
+<!-- Created with: https://tablesgenerator.com/ -->
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg .tg-c3ow {
+        border-color: inherit;
+        text-align: center;
+        vertical-align: top
+    }
+
+    .tg .tg-0pky {
+        border-color: inherit;
+        text-align: left;
+        vertical-align: top
+    }
+</style>
+<table class="tg">
+    <tbody>
+        <tr>
+            <th class="tg-0pky">ID</th>
+            <th class="tg-c3ow">{{ shoe.id }}</th>
+        </tr>
+        <tr>
+            <td class="tg-0pky">Brand<br></td>
+            <td class="tg-c3ow">{{ shoe.brand }}</td>
+        </tr>
+        <tr>
+            <td class="tg-0pky">Model</td>
+            <td class="tg-c3ow">{{ shoe.model }}</td>
+        </tr>
+        <tr>
+            <td class="tg-0pky">Cupboard</td>
+            <td class="tg-c3ow"><a href="{{ path('cupboard_show', {'id': shoe.cupboard.id}) }}">{{ shoe.cupboard }}</a></td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<a href="{{ path('shoe_index') }}">Go to shoes list</a>
+
+{% endblock %} {# body #}

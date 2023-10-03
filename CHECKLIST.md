@@ -162,7 +162,7 @@
 <td class="org-left">- navigation entre [inventaire] et ses [objets]</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">TP 5</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 </tbody>
 <tbody>
@@ -230,7 +230,7 @@
 <td class="org-left">utilisation de gabarits pour les pages de consultation du front-office</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP 5</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 
 <tr>
@@ -238,7 +238,7 @@
 <td class="org-left">- consultation d'un [objet]</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 
 <tr>
@@ -246,7 +246,7 @@
 <td class="org-left">- consultation de la liste des [objets] d'un [inventaire]</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 
 <tr>
@@ -254,7 +254,7 @@
 <td class="org-left">- navigation d'un [inventaire] vers la consultation de ses [objets]</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 </tbody>
 <tbody>

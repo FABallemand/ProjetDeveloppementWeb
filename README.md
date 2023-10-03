@@ -53,7 +53,7 @@ See *CHECKLIST.md* for more details.
 - [x] Add CRUD controller for all entities
 
 ### Step 9: Pages Gabarits & Front-Office Display
-- [ ] Add display of an object (**Shoe**) inside an inventory (**Cupboard**) in the front-office
+- [x] Add display of an object (**Shoe**) inside an inventory (**Cupboard**) in the front-office
 
 ### Step 10: Back-Office Display
 - [ ] Add page to display inventory (**Cupboard**)
@@ -170,7 +170,7 @@ rm -fr .project .settings/
 - Can a shoe live outside a cupboard?? private ?Cupboard $cupboard = null;
 - Check datafixture code
 - Unify docstrings
-- Add motiviation, UML in README
+- Add UML in README
 
 ## ⚙️ About
 - php v8.1.2

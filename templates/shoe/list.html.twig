@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shoes List{% endblock %}
+
+{% block body %}
+<h1>Shoes List</h1>
+
+<ul>
+    {% for shoe in shoes %}
+    <li><a href="{{ path('shoe_show', {'id': shoe.id}) }}">{{ shoe.brand }} {{ shoe.model }}</a></li>
+    {% endfor %} {# shoes #}
+</ul>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for shoe in shoes %}
+        <tr>
+            <td>{{ shoe.id }}</td>
+            <td><a href="{{ path('shoe_show', {'id': shoe.id}) }}">{{ shoe.brand }}</a></td>
+            <td><a href="{{ path('shoe_show', {'id': shoe.id}) }}">{{ shoe.model }}</a></td>
+        </tr>
+        {% endfor %} {# shoes #}
+
+    </tbody>
+</table>
+
+{% endblock %} {# body #}

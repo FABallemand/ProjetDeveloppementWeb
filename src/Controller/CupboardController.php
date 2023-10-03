@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * Controleur Cupboard
+ * Controller Cupboard
  */
 #[Route('/cupboard')]
 class CupboardController extends AbstractController
 {
-    #[Route('/', name: 'home', methods: ['GET'])]
+    #[Route('/', name: 'cupboard_home', methods: ['GET'])]
     public function indexAction()
     {
         return $this->render('cupboard/index.html.twig', [

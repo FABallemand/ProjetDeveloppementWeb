@@ -37,7 +37,8 @@ class Shoe
     public function __toString()
     {
         $s = '';
-        $s .= $this->getId() . ' ' . $this->getBrand() . ' ' . $this->getModel();
+        $s .=  $this->getBrand() . ' ' . $this->getModel();
+        // $s .= $this->getId() . ' ' . $this->getBrand() . ' ' . $this->getModel();
         return $s;
     }
 

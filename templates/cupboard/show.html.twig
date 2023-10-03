@@ -8,7 +8,7 @@
 {% dump cupboard %}
 {{ dump(cupboard) }}
 
-<table class="table">
+<!-- <table class="table">
     <tbody>
         <tr>
             <th>Id</th>
@@ -18,10 +18,107 @@
             <th>Cupboard</th>
             <td>{{ cupboard.name }}</td>
         </tr>
-        ...
+    </tbody>
+</table> -->
+
+<!-- Created with: https://tablesgenerator.com/ -->
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg .tg-c3ow {
+        border-color: inherit;
+        text-align: center;
+        vertical-align: top
+    }
+
+    .tg .tg-0pky {
+        border-color: inherit;
+        text-align: left;
+        vertical-align: top
+    }
+
+    .tg .tg-0lax {
+        text-align: left;
+        vertical-align: top
+    }
+</style>
+<table class="tg">
+    <tbody>
+        <tr>
+            <th class="tg-0pky">ID</th>
+            <th class="tg-c3ow" colspan="2">{{ cupboard.id }}</th>
+        </tr>
+        <tr>
+            <td class="tg-0pky">Name<br></td>
+            <td class="tg-c3ow" colspan="2">{{ cupboard.name }}</td>
+        </tr>
+        {% set shoeNumber = 1 %}
+        {% for shoe in cupboard.shoes %}
+        <tr>
+            <td class="tg-0pky" rowspan="3">Shoe {{ shoeNumber }}<br></td>
+            <td class="tg-c3ow">ID</td>
+            <td class="tg-0lax">{{ shoe.id }}</td>
+        </tr>
+        <tr>
+            <td class="tg-0lax">Brand</td>
+            <td class="tg-0lax">{{ shoe.brand }}</td>
+        </tr>
+        <tr>
+            <td class="tg-0lax">Model</td>
+            <td class="tg-0lax">{{ shoe.model }}</td>
+        </tr>
+        {% set shoeNumber = shoeNumber + 1 %}
+        {% endfor %} {# cupboard.shoes #}
     </tbody>
 </table>
-
-<a href="{{ path('cupboard_index') }}">back to list</a>
+<br>
+<table class="tg">
+    <tbody>
+        <tr>
+            <th class="tg-0pky">ID</th>
+            <th class="tg-c3ow" colspan="2">{{ cupboard.id }}</th>
+        </tr>
+        <tr>
+            <td class="tg-0pky">Name<br></td>
+            <td class="tg-c3ow" colspan="2">{{ cupboard.name }}</td>
+        </tr>
+        {% set shoeNumber = 1 %}
+        {% for shoe in cupboard.shoes %}
+        <tr>
+            <td class="tg-0pky" rowspan="1">Shoe {{ shoeNumber }}<br></td>
+            <td class="tg-0lax"><a href="{{ path('shoe_show', {'id': shoe.id}) }}">{{ shoe }}</a></td>
+        </tr>
+        {% set shoeNumber = shoeNumber + 1 %}
+        {% endfor %} {# cupboard.shoes #}
+    </tbody>
+</table>
+<br>
+<a href="{{ path('cupboard_index') }}">Go to cupboards list</a>
 
 {% endblock %} {# body #}
