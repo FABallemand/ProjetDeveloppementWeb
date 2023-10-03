@@ -171,7 +171,7 @@
 <td class="org-left">ajout de l'entité membre et du lien membre - [inventaire]</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP 3/4</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 
 <tr>
@@ -179,7 +179,7 @@
 <td class="org-left">- ajout de membre au modèle des données</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 
 <tr>
@@ -187,7 +187,7 @@
 <td class="org-left">- ajout de l'association 1-N entre membre et ses inventaires  (optionnellement 1-1)</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 </tbody>
 <tbody>
@@ -196,7 +196,7 @@
 <td class="org-left">création des pages du "front-office" de consultation des [inventaires]</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP4</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 
 <tr>
@@ -204,7 +204,7 @@
 <td class="org-left">- consultation de la liste de tous les inventaires (dans un premier temps)</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 
 <tr>
@@ -212,7 +212,7 @@
 <td class="org-left">- consultation d'une fiche d'[inventaire] à partir de la liste</td>
 <td class="org-left">"</td>
 <td class="org-left">"</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✔️</td>
 </tr>
 </tbody>
 <tbody>

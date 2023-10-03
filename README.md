@@ -40,10 +40,10 @@ TODO: Table for each entity or UML diagram
 - [x] Add member (**Member**) CRUD controller
 
 ### Step 5: First Public Pages
-- [ ] Add inventory (**Cupboard**) controller
-- [ ] Add method to display list inventories (**Cupboard**)
-- [ ] Add method to browse an inventory (**Cupboard**)
-- [ ] Add link to browse in the displayed list of inventories (**Cupboard**)
+- [x] Add inventory (**Cupboard**) controller
+- [x] Add method to display list inventories (**Cupboard**)
+- [x] Add method to browse an inventory (**Cupboard**)
+- [x] Add link to browse in the displayed list of inventories (**Cupboard**)
 
 ### Step 6: OneToMany Relations Administration Board
 - [ ] Add administration table for OneToMany relations

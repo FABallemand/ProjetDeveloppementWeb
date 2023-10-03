@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cupboards List{% endblock %}
+
+{% block body %}
+<h1>Cupboards List</h1>
+
+<ul>
+    {% for cupboard in cupboards %}
+    <li><a href="{{ path('cupboard_show', {'id': cupboard.id}) }}">{{ cupboard.name }}</a></li>
+    {% endfor %} {# cupboards #}
+</ul>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>name</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for cupboard in cupboards %}
+        <tr>
+            <td>{{ cupboard.id }}</td>
+            <td><a href="{{ path('cupboard_show', {'id': cupboard.id}) }}">{{ cupboard.name }}</a></td>
+        </tr>
+        {% endfor %} {# cupboards #}
+
+    </tbody>
+</table>
+
+{% endblock %} {# body #}
