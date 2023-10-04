@@ -5,12 +5,21 @@ As a trail runner I really want to know the best shoes to buy. In order to perfo
 
 Trail Running Shoes (TRS) is a community based website rencensing relevant data about trail running shoes. Athletes can share feedbacks, feelings or technical details about the shoes they own (and store in a cupboard) and browse the thoughts of other trail runners about other running sneackers. All athletes can easily display their favorite (or worst) shoes on a special shelf.
 
-| Member    |       Trail Runner        |
-|-----------|---------------------------|
-| Object    |  Trail Shoes (**Shoe**)   |
-| Inventory |  Cupboard (**Cupboard**)  |
-| Galerie   |     Shelf (**Shelf**)     |
+## ⚙️ Technical Description
+Created using:
+- php v8.1.2
+- Symfony v6.3.4
+- Tested with Mozilla Firefox v117.0 on Ubuntu 22.04 LTS
 
+Association table between the type of entities in the data sheet, their real-life counterpart and the name used in the code:
+| Entity Type |    Entity    |   Class Name   |
+|-------------|--------------|----------------|
+| Member      | Trail Runner |   **Member**   |
+| Object      |  Trail Shoes |    **Shoe**    |
+| Inventory   |   Cupboard   |  **Cupboard**  |
+| Galerie     |     Shelf    |   **Shelf**    |
+
+Class diagram:
 ```mermaid
 classDiagram
 Member --* Cupboard : 0..*
@@ -183,10 +192,6 @@ rm -fr .project .settings/
 - Can a shoe live outside a cupboard?? private ?Cupboard $cupboard = null;
 - Check datafixture code
 - Unify docstrings
-
-## ⚙️ About
-- php v8.1.2
-- Symfony v6.3.4
 
 ## 👤 Author
 - Fabien ALLEMAND
