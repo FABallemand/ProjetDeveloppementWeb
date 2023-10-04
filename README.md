@@ -12,8 +12,7 @@ Class09 --|> Class07
 Class07 : equals()
 Class07 : Object[] elementData
 Member : size()
-Member : int chimp
-Member : int gorilla
+Member : int id
 Class08 <--> C2: Cool label
 ```
 ```mermaid
