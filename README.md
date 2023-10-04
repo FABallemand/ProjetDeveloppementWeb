@@ -1,12 +1,14 @@
 # 🛜 Projet Developpement Web: Trail Running Shoes
 
-
 ```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+classDiagram
+Member : int id
+Member : string name
+Cupboard : int id
+Cupboard : string name
+Shoe : int id
+Shoe : string brand
+Shoe : string model
 ```
 ```mermaid
 classDiagram
