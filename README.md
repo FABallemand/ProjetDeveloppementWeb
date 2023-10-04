@@ -19,6 +19,12 @@ Class08 <--> C2: Cool label
 ```mermaid
 classDiagram
 Member : int id
+Cupboard : int id
+Shoe : int id
+```
+```mermaid
+classDiagram
+Member : int id
 Member : string name
 Cupboard : int id
 Cupboard : string name
