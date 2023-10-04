@@ -16,14 +16,17 @@ Class08 <--> C2: Cool label
 ```
 ```mermaid
 classDiagram
+Member --* Cupboard
+Cupboard --* Shoe
 Member : int id
 Cupboard : int id
 Shoe : int id
-Member --* Cupboard
-Cupboard --* Shoe
+
 ```
 ```mermaid
 classDiagram
+Member --* Cupboard : 0..*
+Cupboard --* Shoe : 0..*
 Member : int id
 Member : string name
 Cupboard : int id
@@ -31,8 +34,6 @@ Cupboard : string name
 Shoe : int id
 Shoe : string brand
 Shoe : string model
-Member --* Cupboard : 0..*
-Cupboard --* Shoe : 0..*
 ```
 
 ## 👟 Description
