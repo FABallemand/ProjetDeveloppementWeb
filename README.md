@@ -2,8 +2,7 @@
 
 ```mermaid
 classDiagram
-Member <|-- AveryLongClass : Cool
-Class03 *-- Class04
+Class03 *-- Member
 Class05 o-- Class06
 Class07 .. Class08
 Class09 --> C2 : Where am i?
@@ -11,8 +10,8 @@ Class09 --* C3
 Class09 --|> Class07
 Class07 : equals()
 Class07 : Object[] elementData
-Member : size()
 Member : int id
+Member : string name
 Class08 <--> C2: Cool label
 ```
 ```mermaid
