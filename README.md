@@ -21,6 +21,8 @@ classDiagram
 Member : int id
 Cupboard : int id
 Shoe : int id
+Member --* Cupboard
+Cupboard --* Shoe
 ```
 ```mermaid
 classDiagram
