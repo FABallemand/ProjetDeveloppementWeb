@@ -1,5 +1,18 @@
 # 🛜 Projet Developpement Web: Trail Running Shoes
 
+```mermaid
+classDiagram
+Member : int id
+Member : string name
+Cupboard : int id
+Cupboard : string name
+Shoe : int id
+Shoe : string brand
+Shoe : string model
+Member --* Cupboard : 0..*
+Cupboard --* Shoe : 0..*
+```
+
 ## 👟 Description
 As a trail runner I really want to know the best shoes to buy. In order to perform an educated purchase I need to know what each model feels on the long run: How light are the shoes? Are they comfortable? Do they have a good grip? On rock? On dirt? What about rainning conditions? Will my ankle feel supported? Which size should I get?
 

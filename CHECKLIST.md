@@ -221,7 +221,7 @@
 <td class="org-left">ajout de la navigation entre [inventaire] et [objet] dans le back-office EasyAdmin</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">TP 4/5</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
