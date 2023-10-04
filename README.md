@@ -132,6 +132,7 @@ See *CHECKLIST.md* for more details.
 ### Step 23: Have fun !!
 
 ## 🔗 Useful Links
+- [GitHub Repository](https://github.com/FABallemand/ProjetDeveloppementWeb)
 - [Symfony Documentation](https://symfony.com/doc/current/index.html)
 - [Symfony Documentation: Databases and the Doctrine ORM](https://symfony.com/doc/current/doctrine.html)
 - [Doctrine ORM Documentation](https://www.doctrine-project.org/projects/doctrine-orm/en/2.16/index.html)
