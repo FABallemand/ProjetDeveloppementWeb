@@ -1,51 +1,28 @@
 # 🛜 Projet Developpement Web: Trail Running Shoes
 
-```mermaid
-classDiagram
-Class03 *-- Member
-Class05 o-- Class06
-Class07 .. Class08
-Class09 --> C2 : Where am i?
-Class09 --* C3
-Class09 --|> Class07
-Class07 : equals()
-Class07 : Object[] elementData
-Member : int id
-Member : string name
-Class08 <--> C2: Cool label
-```
-```mermaid
-classDiagram
-Member --* Cupboard
-Cupboard --* Shoe
-Member : int id
-Cupboard : int id
-Shoe : int id
-
-```
-```mermaid
-classDiagram
-Member --* Cupboard : 0..*
-Cupboard --* Shoe : 0..*
-Member : int id
-Member : string name
-Cupboard : int id
-Cupboard : string name
-Shoe : int id
-Shoe : string brand
-Shoe : string model
-```
-
 ## 👟 Description
 As a trail runner I really want to know the best shoes to buy. In order to perform an educated purchase I need to know what each model feels on the long run: How light are the shoes? Are they comfortable? Do they have a good grip? On rock? On dirt? What about rainning conditions? Will my ankle feel supported? Which size should I get?
 
 Trail Running Shoes (TRS) is a community based website rencensing relevant data about trail running shoes. Athletes can share feedbacks, feelings or technical details about the shoes they own (and store in a cupboard) and browse the thoughts of other trail runners about other running sneackers. All athletes can easily display their favorite (or worst) shoes on a special shelf.
 
-|           |       Trail Runner        |
+<!-- |           |       Trail Runner        |
 |-----------|---------------------------|
 | Object    |  Trail Shoes (**Shoe**)   |
 | Inventory |  Cupboard (**Cupboard**)  |
-| Galerie   |     Shelf (**Shelf**)     |
+| Galerie   |     Shelf (**Shelf**)     | -->
+
+```mermaid
+classDiagram
+Member --* Cupboard [Inventory] : 0..*
+Cupboard [Inventory] --* Shoe [Object] : 0..*
+Member : int id
+Member : string name
+Cupboard [Inventory] : int id
+Cupboard [Inventory] : string name
+Shoe [Object] : int id
+Shoe [Object] : string brand
+Shoe [Object] : string model
+```
 
 ## 📝 Step-by-step Description
 See *CHECKLIST.md* for more details.
@@ -206,7 +183,6 @@ rm -fr .project .settings/
 - Can a shoe live outside a cupboard?? private ?Cupboard $cupboard = null;
 - Check datafixture code
 - Unify docstrings
-- Add UML in README
 
 ## ⚙️ About
 - php v8.1.2
