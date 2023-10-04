@@ -5,23 +5,23 @@ As a trail runner I really want to know the best shoes to buy. In order to perfo
 
 Trail Running Shoes (TRS) is a community based website rencensing relevant data about trail running shoes. Athletes can share feedbacks, feelings or technical details about the shoes they own (and store in a cupboard) and browse the thoughts of other trail runners about other running sneackers. All athletes can easily display their favorite (or worst) shoes on a special shelf.
 
-<!-- |           |       Trail Runner        |
+| Member    |       Trail Runner        |
 |-----------|---------------------------|
 | Object    |  Trail Shoes (**Shoe**)   |
 | Inventory |  Cupboard (**Cupboard**)  |
-| Galerie   |     Shelf (**Shelf**)     | -->
+| Galerie   |     Shelf (**Shelf**)     |
 
 ```mermaid
 classDiagram
-Member --* Cupboard [Inventory] : 0..*
-Cupboard [Inventory] --* Shoe [Object] : 0..*
+Member --* Cupboard : 0..*
+Cupboard --* Shoe : 0..*
 Member : int id
 Member : string name
-Cupboard [Inventory] : int id
-Cupboard [Inventory] : string name
-Shoe [Object] : int id
-Shoe [Object] : string brand
-Shoe [Object] : string model
+Cupboard : int id
+Cupboard : string name
+Shoe : int id
+Shoe : string brand
+Shoe : string model
 ```
 
 ## 📝 Step-by-step Description
