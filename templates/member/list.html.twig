@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Members List{% endblock %}
+
+{% block body %}
+<h1>Members List</h1>
+
+<ul>
+    {% for member in members %}
+    <li><a href="{{ path('member_show', {'id': member.id}) }}">{{ member.name }}</a></li>
+    {% endfor %} {# members #}
+</ul>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for member in members %}
+        <tr>
+            <td>{{ member.id }}</td>
+            <td><a href="{{ path('member_show', {'id': member.id}) }}">{{ member.name }}</a></td>
+            <td>{{ member.age }}</td>
+        </tr>
+        {% endfor %} {# members #}
+
+    </tbody>
+</table>
+
+{% endblock %} {# body #}

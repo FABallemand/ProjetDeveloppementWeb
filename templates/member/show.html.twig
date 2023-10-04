@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Member {{ member.id }}{% endblock %}
+
+{% block body %}
+<h1>Member {{ member.id }}</h1>
+
+{% dump member %}
+{{ dump(member) }}
+
+<!-- <table class="table">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ member.id }}</td>
+        </tr>
+        <tr>
+            <th>Member</th>
+            <td>{{ member.name }}</td>
+        </tr>
+    </tbody>
+</table> -->
+
+<!-- Created with: https://tablesgenerator.com/ -->
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg .tg-c3ow {
+        border-color: inherit;
+        text-align: center;
+        vertical-align: top
+    }
+
+    .tg .tg-0pky {
+        border-color: inherit;
+        text-align: left;
+        vertical-align: top
+    }
+
+    .tg .tg-0lax {
+        text-align: left;
+        vertical-align: top
+    }
+</style>
+<table class="tg">
+    <tbody>
+        <tr>
+            <th class="tg-0pky">ID</th>
+            <th class="tg-c3ow" colspan="2">{{ member.id }}</th>
+        </tr>
+        <tr>
+            <td class="tg-0pky">Name<br></td>
+            <td class="tg-c3ow" colspan="2">{{ member.name }}</td>
+        </tr>
+        {% set cupboardNumber = 1 %}
+        {% for cupboard in member.cupboards %}
+        <tr>
+            <td class="tg-0pky" rowspan="1">Cupboard {{ cupboardNumber }}<br></td>
+            <td class="tg-0lax"><a href="{{ path('cupboard_show', {'id': cupboard.id}) }}">{{ cupboard }}</a></td>
+        </tr>
+        {% set cupboardNumber = cupboardNumber + 1 %}
+        {% endfor %} {# member.cupboards #}
+    </tbody>
+</table>
+<br>
+<a href="{{ path('member_index') }}">Go to members list</a>
+
+{% endblock %} {# body #}

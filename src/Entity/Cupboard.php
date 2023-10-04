@@ -27,7 +27,7 @@ class Cupboard
     /**
      * @var Collection Shoes stored inside the cupboard
      */
-    #[ORM\OneToMany(mappedBy: 'cupboard', targetEntity: Shoe::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'cupboard', targetEntity: Shoe::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $shoes;
 
     /**

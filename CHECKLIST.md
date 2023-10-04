@@ -96,7 +96,7 @@
 <td class="org-left">- propriétés non-essentielles des [objets] (optionnel)</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">(en 2ème moitié de projet)</td>
-<td class="org-left">✔️</td>
+<td class="org-left">🔄</td>
 </tr>
 </tbody>
 <tbody>

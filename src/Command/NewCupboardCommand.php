@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Cupboard;
+use App\Entity\Member;
 use App\Entity\CupboardRepository;
 
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -24,6 +25,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class NewCupboardCommand extends Command
 {
     /**
+     *  @var ManagerRegistry data access repository
+     */
+    private ManagerRegistry $doctrineManager;
+
+    /**
      *  @var CupboardRepository data access repository
      */
     private $cupboardRepository;
@@ -35,7 +41,9 @@ class NewCupboardCommand extends Command
      */
     public function __construct(ManagerRegistry $doctrineManager)
     {
-        $this->cupboardRepository = $doctrineManager->getRepository(Cupboard::class);
+        $this->doctrineManager = $doctrineManager;
+
+        $this->cupboardRepository = $this->doctrineManager->getRepository(Cupboard::class);
 
         parent::__construct();
     }
@@ -44,18 +52,30 @@ class NewCupboardCommand extends Command
     {
         $this
             ->setHelp('This command allows you to create a cupboard')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the cupboard');
+            ->addArgument('name', InputArgument::REQUIRED, 'The name of the cupboard')
+            ->addArgument('member_name', InputArgument::REQUIRED, 'The name of the member');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
+        // Create cupboard and set name
         $cupboard = new Cupboard();
         $cupboard->setName($input->getArgument('name'));
+        // Load and set member
+        $memberRepository = $this->doctrineManager->getRepository(Member::class);
+        $member = $memberRepository->findByName($input->getArgument('member_name'));
+        if (!$member) {
+            $io->error('could not find member!');
+            return Command::FAILURE;
+        }
+        $member[0]->addCupboard($cupboard);
 
+        // Save cupboard
         $this->cupboardRepository->save($cupboard, true);
 
+        // Check if cupboard has been created
         if ($cupboard->getId()) {
             $io->text('Created: ' . $cupboard);
             return Command::SUCCESS;

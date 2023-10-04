@@ -44,8 +44,8 @@ class NewMemberCommand extends Command
     {
         $this
             ->setHelp('This command allows you to create a member')
-            ->addArgument('name', InputArgument::REQUIRED, 'The name of the memeber')
-            ->addArgument('age', InputArgument::OPTIONAL, 'The age of the memeber');
+            ->addArgument('name', InputArgument::REQUIRED, 'The name of the member')
+            ->addArgument('age', InputArgument::OPTIONAL, 'The age of the member');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

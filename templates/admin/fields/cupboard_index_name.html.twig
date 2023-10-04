@@ -8,10 +8,10 @@
     {{ field.value }}
 {% else %}
 	<a href="{{ url }}">
-		{% if entity.instance.shoes %}
-			{{ field.value }}
-		{%  else %}
-            <strike>{{ field.value }}</strike>
+		{% if entity.instance.shoes is empty %}
+        <strike>{{ field.value }}</strike>
+		{% else %}
+            {{ field.value }}
         {% endif %}    
  	</a>
  {% endif %}

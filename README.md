@@ -173,11 +173,15 @@ symfony console doctrine:database:drop --force
 ```bash
 symfony console doctrine:fixtures:load -n
 ```
-9. Access Symfony logs
+9. Do 7, 5 and 8 🚀
+```bash
+sh reload_fixtures.sh
+```
+10. Access Symfony logs
 ```bash
 tail -f var/log/dev.log # doctrine.DEBUG tags
 ```
-10.  Clear Symfony project
+11.   Clear Symfony project
 ```bash
 symfony console cache:clear
 rm -fr .project .settings/
@@ -187,11 +191,8 @@ rm -fr .project .settings/
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
-- TODO Custom EasyAdmin
-- TODO Add useful commands -> TP2
-- Can a shoe live outside a cupboard?? private ?Cupboard $cupboard = null;
-- Check datafixture code
-- Unify docstrings
+- TODO: Add useful commands -> TP2
+- TODO: Unify docstrings
 
 ## 👤 Author
 - Fabien ALLEMAND

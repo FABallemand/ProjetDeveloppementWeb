@@ -28,7 +28,11 @@ class Shoe
     #[ORM\Column(length: 255)]
     private ?string $model = null;
 
+    /**
+     * @var Cupboard Cupboard where the shoe is stored
+     */
     #[ORM\ManyToOne(inversedBy: 'shoes')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Cupboard $cupboard = null;
 
     /**
