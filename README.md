@@ -176,17 +176,34 @@ symfony console doctrine:fixtures:load -n
 ```
 9. Do 7, 5 and 8 🚀
 ```bash
-sh reload_fixtures.sh
+make reload_fixtures
 ```
 10. Access Symfony logs
 ```bash
 tail -f var/log/dev.log # doctrine.DEBUG tags
 ```
-11.   Clear Symfony project
+11. Clean Symfony project
 ```bash
 symfony console cache:clear
 rm -fr .project .settings/
 ```
+```bash
+make clean
+```
+12. Really clean Symfony project
+```bash
+symfony console cache:clear
+rm -fr composer.lock symfony.lock vendor/ var/cache/
+rm -fr .project .settings/
+```
+```bash
+make deep_clean
+```
+13. Create and test project archive in Download folder
+```bash
+make prepar_to_send
+```
+
 ## 📋 Notes
 - Create and link entities -> TP2
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
@@ -194,6 +211,7 @@ rm -fr .project .settings/
 - Orphan removal -> TA1
 - TODO: Add useful commands -> TP2
 - TODO: Unify docstrings
+- TODO: makefile for useful commands (reload fixtures, clean project, create archive...)
 
 ## 👤 Author
 - Fabien ALLEMAND
