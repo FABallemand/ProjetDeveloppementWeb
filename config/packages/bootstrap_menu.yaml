@@ -1,0 +1,13 @@
+bootstrap_menu:
+  menus:
+    main:
+      items:
+        members:
+          label: 'Members'
+          route: 'member_list'
+        cupboards:
+          label: 'Cupboards'
+          route: 'cupboard_list'
+        shoes:
+          label: 'Shoes'
+          route: 'shoe_list'

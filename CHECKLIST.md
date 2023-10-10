@@ -263,7 +263,7 @@
 <td class="org-left">intégration d'une mise en forme CSS avec Bootstrap dans les gabarits Twig</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP 6</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -271,8 +271,8 @@
 <td class="org-right">12</td>
 <td class="org-left">intégration de menus de navigation</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
-<td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">TP 6</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>

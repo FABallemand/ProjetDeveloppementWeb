@@ -82,8 +82,8 @@ See *CHECKLIST.md* for more details.
 - [x] Add list of the entities in the page
 
 ### Step 11: CSS
-- [ ] Download and integrate Bootstrp in templates
-- [ ] Add menus for Bootstrap
+- [x] Download and integrate Bootstrap in templates
+- [x] Add menus for Bootstrap
 
 ### Step 12: Add Galery Entity
 - [ ] Add galery (**Shelf**) entity

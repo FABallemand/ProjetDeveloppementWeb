@@ -35,7 +35,7 @@ prepare_to_send:
 	cd /tmp/test/$(ARCHIVE_NAME); symfony composer install; symfony server:start &
 	cd /tmp/test/$(ARCHIVE_NAME); make reload_fixtures
 	firefox localhost/admin
-	cd /tmp/test/$(ARCHIVE_NAME); sleep 30; symfony server:stop
+	cd /tmp/test/$(ARCHIVE_NAME); sleep 30; symfony server:stop &
 	rm -fr /tmp/$(ARCHIVE_NAME)
 	rm -fr /tmp/test
 # Move archive in the Download folder
