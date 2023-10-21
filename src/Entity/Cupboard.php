@@ -48,7 +48,6 @@ class Cupboard
     public function __toString()
     {
         $s = '';
-        // $s .= '[' . $this->getId() . '] ' . $this->getName() . ' [#shoes = ' . $this->shoes->count() . ']';
         $s .= $this->getName();
         return $s;
     }

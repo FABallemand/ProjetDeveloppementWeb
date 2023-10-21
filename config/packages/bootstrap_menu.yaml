@@ -4,10 +4,13 @@ bootstrap_menu:
       items:
         members:
           label: 'Members'
-          route: 'member_list'
+          route: 'app_member_index'
+        shelves:
+          label: 'Shelves'
+          route: 'app_shelf_index'
         cupboards:
           label: 'Cupboards'
-          route: 'cupboard_list'
+          route: 'app_cupboard_index'
         shoes:
           label: 'Shoes'
-          route: 'shoe_list'
+          route: 'app_shoe_index'

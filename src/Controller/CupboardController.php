@@ -3,52 +3,82 @@
 namespace App\Controller;
 
 use App\Entity\Cupboard;
+use App\Form\CupboardType;
+use App\Repository\CupboardRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * Controller Cupboard
+ * Cupboard Controller
  */
 #[Route('/cupboard')]
 class CupboardController extends AbstractController
 {
-    #[Route('/', name: 'cupboard_home', methods: ['GET'])]
-    public function indexAction()
+    #[Route('/', name: 'app_cupboard_index', methods: ['GET'])]
+    public function index(CupboardRepository $cupboardRepository): Response
     {
         return $this->render('cupboard/index.html.twig', [
-            'controller_name' => 'CupboardController',
+            'cupboards' => $cupboardRepository->findAll(),
         ]);
     }
 
-    /**
-     * Lists all cupboard entities.
-     */
-    #[Route('/list', name: 'cupboard_list', methods: ['GET'])]
-    #[Route('/index', name: 'cupboard_index', methods: ['GET'])]
-    public function listAction(ManagerRegistry $doctrine): Response
+    #[Route('/new', name: 'app_cupboard_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $entityManager = $doctrine->getManager();
-        $cupboards = $entityManager->getRepository(Cupboard::class)->findAll();
+        $cupboard = new Cupboard();
+        $form = $this->createForm(CupboardType::class, $cupboard);
+        $form->handleRequest($request);
 
-        // dump($cupboards);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($cupboard);
+            $entityManager->flush();
 
-        return $this->render(
-            'cupboard/list.html.twig',
-            ['cupboards' => $cupboards]
-        );
+            return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('cupboard/new.html.twig', [
+            'cupboard' => $cupboard,
+            'form' => $form,
+        ]);
     }
 
-    /**
-     * Finds and displays a cupboard entity.
-     */
-    #[Route('/{id}', name: 'cupboard_show', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function showAction(Cupboard $cupboard): Response
+    #[Route('/{id}', name: 'app_cupboard_show', methods: ['GET'])]
+    public function show(Cupboard $cupboard): Response
     {
-        return $this->render(
-            'cupboard/show.html.twig',
-            ['cupboard' => $cupboard]
-        );
+        return $this->render('cupboard/show.html.twig', [
+            'cupboard' => $cupboard,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_cupboard_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(CupboardType::class, $cupboard);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('cupboard/edit.html.twig', [
+            'cupboard' => $cupboard,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_cupboard_delete', methods: ['POST'])]
+    public function delete(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$cupboard->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($cupboard);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);
     }
 }

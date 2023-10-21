@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cupboard index{% endblock %}
+{% block title %}Shelf index{% endblock %}
 
 {% block main %}
-    <h1>Cupboard index</h1>
+    <h1>Shelf index</h1>
 
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 
-                {% for cupboard in cupboards %}
+                {% for shelf in shelves %}
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
@@ -18,19 +18,23 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <h5 class="fw-bolder">{{ cupboard.name }}</h5>
+                                <h5 class="fw-bolder">{{ shelf.name }}</h5>
                                 <!-- Product reviews-->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="text-center">By: <a href="{{ path('app_member_show', {'id': cupboard.member.id}) }}">{{ cupboard.member.name }}</a></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
                                 </div>
                             </div>
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_cupboard_show', {'id': cupboard.id}) }}">Show details</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_shelf_show', {'id': shelf.id}) }}">Show details</a></div>
                         </div>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{{ path('app_cupboard_edit', {'id': cupboard.id}) }}">Edit</a></div>
+                            <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{{ path('app_shelf_edit', {'id': shelf.id}) }}">Edit</a></div>
                         </div>
                     </div>
                 </div>
@@ -41,7 +45,7 @@
     </section>
 
     <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-success mt-auto" href="{{ path('app_cupboard_new') }}">Create new</a></div>
+        <div class="text-center"><a class="btn btn-success mt-auto" href="{{ path('app_shelf_new') }}">Create new</a></div>
     </div>
 
     <table class="table">
@@ -49,25 +53,30 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Description</th>
+                <th>Published</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for cupboard in cupboards %}
+        {% for shelf in shelves %}
             <tr>
-                <td>{{ cupboard.id }}</td>
-                <td>{{ cupboard.name }}</td>
+                <td>{{ shelf.id }}</td>
+                <td>{{ shelf.name }}</td>
+                <td>{{ shelf.description }}</td>
+                <td>{{ shelf.published ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_cupboard_show', {'id': cupboard.id}) }}">show</a>
-                    <a href="{{ path('app_cupboard_edit', {'id': cupboard.id}) }}">edit</a>
+                    <a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">show</a>
+                    <a href="{{ path('app_shelf_edit', {'id': shelf.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
+    <button class="btn btn-dark"><a href="{{ path('app_shelf_new') }}">Create new</a></button>
 {% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Cupboard{% endblock %}
+
+{% block main %}
+    <h1>Edit Cupboard</h1>
+
+    {{ include('cupboard/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <div class="p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-info mt-auto" href="{{ path('app_cupboard_index') }}">Back to list</a></div>
+    </div>
+
+    {{ include('cupboard/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,21 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ShoeController!{% endblock %}
+{% block title %}Shoe index{% endblock %}
 
 {% block main %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Shoe index</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                
+                {% for shoe in shoes %}
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{ shoe.brand }} {{ shoe.model }}</h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_shoe_show', {'id': shoe.id}) }}">Show details</a></div>
+                        </div>
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{{ path('app_shoe_edit', {'id': shoe.id}) }}">Edit</a></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} {# shoes #}            
+                
+            </div>
+        </div>
+    </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/fabien/TSP/2A/Web Dev/ProjetDeveloppementWeb/src/Controller/CupboardController.php'|file_link(0) }}">src/Controller/CupboardController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/fabien/TSP/2A/Web Dev/ProjetDeveloppementWeb/templates/cupboard/index.html.twig'|file_link(0) }}">templates/cupboard/index.html.twig</a></code></li>
-    </ul>
-    You can see the list of shoes <a href="{{ path('shoe_list') }}">here</a>!
-</div>
+    <!-- <button class="btn btn-dark"><a href="{{ path('app_shoe_new') }}">Create new</a></button> -->
+    <div class="p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-success mt-auto" href="{{ path('app_shoe_new') }}">Create new</a></div>
+    </div>
+
+    <section>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for shoe in shoes %}
+                <tr>
+                    <td>{{ shoe.id }}</td>
+                    <td>{{ shoe.brand }}</td>
+                    <td>{{ shoe.model }}</td>
+                    <td>
+                        <a href="{{ path('app_shoe_show', {'id': shoe.id}) }}">show</a>
+                        <a href="{{ path('app_shoe_edit', {'id': shoe.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    
 {% endblock %}

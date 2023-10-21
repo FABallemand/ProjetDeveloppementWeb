@@ -209,9 +209,7 @@ make prepar_to_send
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
-- TODO: Add useful commands -> TP2
-- TODO: Unify docstrings
-- TODO: makefile for useful commands (reload fixtures, clean project, create archive...)
+- TODO: error edit shoe
 
 ## 👤 Author
 - Fabien ALLEMAND

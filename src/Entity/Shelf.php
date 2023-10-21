@@ -28,7 +28,7 @@ class Shelf
      * @var string Shelf description
      */
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    private ?string $description = null; /* idealy change for text type */
 
     /**
      * @var bool Indicates if the shelf has been published
@@ -52,6 +52,16 @@ class Shelf
     public function __construct()
     {
         $this->shoes = new ArrayCollection();
+    }
+
+    /**
+     * @return string String describing the shelf
+     */
+    public function __toString()
+    {
+        $s = '';
+        $s .=  $this->getName();
+        return $s;
     }
 
     public function getId(): ?int

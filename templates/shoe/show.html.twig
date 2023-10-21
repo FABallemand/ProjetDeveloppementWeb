@@ -1,93 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shoe {{ shoe.id }}{% endblock %}
+{% block title %}Shoe{% endblock %}
 
 {% block main %}
-<h1>Shoe {{ shoe.id }}</h1>
+    <h1>Shoe</h1>
 
-{% dump shoe %}
-{{ dump(shoe) }}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ shoe.id }}</td>
+            </tr>
+            <tr>
+                <th>Brand</th>
+                <td>{{ shoe.brand }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ shoe.model }}</td>
+            </tr>
+            <tr>
+                <th>Cupboard</th>
+                <td><a href="{{ path('app_cupboard_show', {'id': shoe.cupboard.id}) }}">{{ shoe.cupboard }}</a></td>
+            </tr>
+        </tbody>
+    </table>
 
-<!-- <table class="table">
-    <tbody>
-        <tr>
-            <th>ID</th>
-            <td>{{ shoe.id }}</td>
-        </tr>
-        <tr>
-            <th>Brand</th>
-            <td>{{ shoe.brand }}</td>
-        </tr>
-        <tr>
-            <th>Model</th>
-            <td>{{ shoe.model }}</td>
-        </tr>
-    </tbody>
-</table> -->
+    <div class="p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-info mt-auto" href="{{ path('app_shoe_index') }}">Back to list</a></div>
+    </div>
 
-<!-- Created with: https://tablesgenerator.com/ -->
-<style type="text/css">
-    .tg {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
+    <div class="p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-warning mt-auto" href="{{ path('app_shoe_edit', {'id': shoe.id}) }}">Edit</a></div>
+    </div>
 
-    .tg td {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        overflow: hidden;
-        padding: 10px 5px;
-        word-break: normal;
-    }
-
-    .tg th {
-        border-color: black;
-        border-style: solid;
-        border-width: 1px;
-        font-family: Arial, sans-serif;
-        font-size: 14px;
-        font-weight: normal;
-        overflow: hidden;
-        padding: 10px 5px;
-        word-break: normal;
-    }
-
-    .tg .tg-c3ow {
-        border-color: inherit;
-        text-align: center;
-        vertical-align: top
-    }
-
-    .tg .tg-0pky {
-        border-color: inherit;
-        text-align: left;
-        vertical-align: top
-    }
-</style>
-<table class="tg">
-    <tbody>
-        <tr>
-            <th class="tg-0pky">ID</th>
-            <th class="tg-c3ow">{{ shoe.id }}</th>
-        </tr>
-        <tr>
-            <td class="tg-0pky">Brand<br></td>
-            <td class="tg-c3ow">{{ shoe.brand }}</td>
-        </tr>
-        <tr>
-            <td class="tg-0pky">Model</td>
-            <td class="tg-c3ow">{{ shoe.model }}</td>
-        </tr>
-        <tr>
-            <td class="tg-0pky">Cupboard</td>
-            <td class="tg-c3ow"><a href="{{ path('cupboard_show', {'id': shoe.cupboard.id}) }}">{{ shoe.cupboard }}</a></td>
-        </tr>
-    </tbody>
-</table>
-<br>
-<a href="{{ path('shoe_index') }}">Go to shoes list</a>
-
-{% endblock %} {# body #}
+    {{ include('shoe/_delete_form.html.twig') }}
+{% endblock %}

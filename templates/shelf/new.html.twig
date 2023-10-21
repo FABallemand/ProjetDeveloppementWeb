@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Shelf{% endblock %}
+
+{% block main %}
+    <h1>Create new Shelf</h1>
+
+    {{ include('shelf/_form.html.twig') }}
+
+    <div class="p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-info mt-auto" href="{{ path('app_shelf_index') }}">Back to list</a></div>
+    </div>
+{% endblock %}
