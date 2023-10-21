@@ -86,7 +86,7 @@ See *CHECKLIST.md* for more details.
 - [x] Add menus for Bootstrap
 
 ### Step 12: Add Galery Entity
-- [ ] Add galery (**Shelf**) entity
+- [x] Add galery (**Shelf**) entity
 
 ### Step 13: Galery Administration Board
 - [ ] Add galery (**Shelf**) entities to administration board

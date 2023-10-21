@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ShoeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ShoeRepository::class)]
@@ -34,6 +36,14 @@ class Shoe
     #[ORM\ManyToOne(inversedBy: 'shoes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Cupboard $cupboard = null;
+
+    #[ORM\ManyToMany(targetEntity: Shelf::class, mappedBy: 'shoes')]
+    private Collection $shelves;
+
+    public function __construct()
+    {
+        $this->shelves = new ArrayCollection();
+    }
 
     /**
      * @return string String describing the shoes
@@ -83,6 +93,33 @@ class Shoe
     public function setCupboard(?Cupboard $cupboard): static
     {
         $this->cupboard = $cupboard;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shelf>
+     */
+    public function getShelves(): Collection
+    {
+        return $this->shelves;
+    }
+
+    public function addShelf(Shelf $shelf): static
+    {
+        if (!$this->shelves->contains($shelf)) {
+            $this->shelves->add($shelf);
+            $shelf->addShoe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShelf(Shelf $shelf): static
+    {
+        if ($this->shelves->removeElement($shelf)) {
+            $shelf->removeShoe($this);
+        }
 
         return $this;
     }

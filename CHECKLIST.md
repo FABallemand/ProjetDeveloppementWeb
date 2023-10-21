@@ -281,7 +281,7 @@
 <td class="org-left">ajout de l'entité [galerie] au modèle des données et de l'association M-N avec [objet]</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>

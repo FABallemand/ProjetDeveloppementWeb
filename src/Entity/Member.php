@@ -36,9 +36,13 @@ class Member
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Cupboard::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $cupboards;
 
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Shelf::class, orphanRemoval: true)]
+    private Collection $shelves;
+
     public function __construct()
     {
         $this->cupboards = new ArrayCollection();
+        $this->shelves = new ArrayCollection();
     }
 
     /**
@@ -104,6 +108,36 @@ class Member
             // set the owning side to null (unless already changed)
             if ($cupboard->getMember() === $this) {
                 $cupboard->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shelf>
+     */
+    public function getShelves(): Collection
+    {
+        return $this->shelves;
+    }
+
+    public function addShelf(Shelf $shelf): static
+    {
+        if (!$this->shelves->contains($shelf)) {
+            $this->shelves->add($shelf);
+            $shelf->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShelf(Shelf $shelf): static
+    {
+        if ($this->shelves->removeElement($shelf)) {
+            // set the owning side to null (unless already changed)
+            if ($shelf->getMember() === $this) {
+                $shelf->setMember(null);
             }
         }
 
