@@ -20,9 +20,9 @@
                                 <!-- Product name-->
                                 <h5 class="fw-bolder">{{ member.name }}</h5>
                                 <!-- Product reviews-->
-                                {% for cupboard in member.cupboards %}
+                                {% for shelf in member.shelves %}
                                 <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="text-center"><a href="{{ path('app_cupboard_show', {'id': cupboard.id}) }}">{{ cupboard.name }}</a></div>
+                                    <div class="text-center"><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf.name }}</a></div>
                                 </div>
                                 {% endfor %}
                             </div>

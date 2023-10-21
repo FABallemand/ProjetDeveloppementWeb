@@ -27,6 +27,16 @@
                 <th>Cupboard</th>
                 <td><a href="{{ path('app_cupboard_show', {'id': shoe.cupboard.id}) }}">{{ shoe.cupboard }}</a></td>
             </tr>
+            <tr>
+                <th>Shelves</th>
+                <td>
+                    <ul>
+                        {% for shelf in shoe.shelves %}
+                            <li><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 

@@ -110,8 +110,8 @@ See *CHECKLIST.md* for more details.
 - [x] Add galery (**Shelf**) entities to administration board
 
 ### Step 14: Galery Front-Office CRUD Controller
-- [ ] Add new CRUD controller for galeries (**Shelf**)
-- [ ] Improve display
+- [x] Add new CRUD controller for galeries (**Shelf**)
+- [x] Improve display
 
 ### Step 15: Front-Office Symfony Controllers Modifications Methods
 - [ ] ...
@@ -228,6 +228,9 @@ make prepar_to_send
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
 - TODO: error edit shoe
+- TODO: shelf single shoe
+- TODO: edit page not pretty
+- TODO: issue with data fixtures for shelves
 
 ## 👤 Author
 - Fabien ALLEMAND

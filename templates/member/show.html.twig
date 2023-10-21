@@ -6,7 +6,7 @@
     <h1>Member</h1>
 
     <!-- Created with: https://tablesgenerator.com/ -->
-    <style type="text/css">
+    <!-- <style type="text/css">
         .tg {
             border-collapse: collapse;
             border-spacing: 0;
@@ -71,7 +71,7 @@
             {% set cupboardNumber = cupboardNumber + 1 %}
             {% endfor %} {# member.cupboards #}
         </tbody>
-    </table>
+    </table> -->
 
     <table class="table">
         <tbody>
@@ -86,6 +86,26 @@
             <tr>
                 <th>Age</th>
                 <td>{{ member.age }}</td>
+            </tr>
+            <tr>
+                <th>Cupboards</th>
+                <td>
+                    <ul>
+                        {% for cupboard in member.cupboards %}
+                            <li><a href="{{ path('app_cupboard_show', {'id': cupboard.id}) }}">{{ cupboard }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Shelves</th>
+                <td>
+                    <ul>
+                        {% for shelf in member.shelves %}
+                            <li><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
         </tbody>
     </table>

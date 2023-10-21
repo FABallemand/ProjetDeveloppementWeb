@@ -2,7 +2,7 @@
 
 {% block title %}Shelf{% endblock %}
 
-{% block body %}
+{% block main %}
     <h1>Shelf</h1>
 
     <table class="table">
@@ -20,6 +20,10 @@
                 <td>{{ shelf.description }}</td>
             </tr>
             <tr>
+                <th>Owner</th>
+                <td><a href="{{ path('app_member_show', {'id': shelf.member.id}) }}">{{ shelf.member }}</a></td>
+            </tr>
+            <tr>
                 <th>Created</th>
                 <td>{{ shelf.created ? shelf.created|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
@@ -30,6 +34,16 @@
             <tr>
                 <th>Published</th>
                 <td>{{ shelf.published ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Shoes</th>
+                <td>
+                    <ul>
+                        {% for shoe in shelf.shoes %}
+                            <li><a href="{{ path('app_shoe_show', {'id': shoe.id}) }}">{{ shoe }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
         </tbody>
     </table>

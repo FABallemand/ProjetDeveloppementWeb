@@ -123,19 +123,19 @@ class AppFixtures extends Fixture
         }
 
         foreach (self::getShelvesData() as [$shelfReference, $name, $description, $published, $member]) {
-            // Create new Shoes
+            // Create new Shelf
             $shelf = new Shelf();
             $shelf->setName($name);
             $shelf->setDescription($description);
             $shelf->setPublished($published);
             $shelf->setCreated(new \DateTime());
             $shelf->setUpdated(new \DateTime());
-            // Put the Shoes in its Cupboard
+            // Attribute the shelf to a member
             $member = $this->getReference($memberRreference);
             $member->addShelf($shelf);
-
-            // Requires ORM\OneToMany attribute on Cupboard::shoes has "cascade: ['persist']"
             $manager->persist($member);
+
+            $this->addReference($shelfReference, $shelf);
         }
 
         $manager->flush();
