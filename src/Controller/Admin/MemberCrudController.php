@@ -28,6 +28,9 @@ class MemberCrudController extends AbstractCrudController
             TextField::new('name'),
             IntegerField::new('age'),
             AssociationField::new('cupboards'),
+            AssociationField::new('cupboards')->onlyOnDetail()->setTemplatePath('admin/fields/member_cupboards.html.twig'),
+            AssociationField::new('shelves'),
+            AssociationField::new('shelves')->onlyOnDetail()->setTemplatePath('admin/fields/member_shelves.html.twig')
         ];
     }
 

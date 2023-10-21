@@ -298,8 +298,8 @@
 <td class="org-right">15</td>
 <td class="org-left">ajout d'un contrôleur CRUD au front-office pour [galerie]</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
-<td class="org-left">TP xxx</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">TP 7</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -307,8 +307,8 @@
 <td class="org-right">16</td>
 <td class="org-left">ajout de fonctions CRUD au front-office pour [inventaire]</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
-<td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">TP 7</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>

@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 
 class ShoeCrudController extends AbstractCrudController
 {
@@ -24,6 +25,7 @@ class ShoeCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('brand')->setTemplatePath('admin/fields/shoe_index_brand.html.twig'),
             TextField::new('model')->setTemplatePath('admin/fields/shoe_index_model.html.twig'),
+            DateField::new('purchased')->hideOnIndex(),
             AssociationField::new('cupboard')
         ];
     }

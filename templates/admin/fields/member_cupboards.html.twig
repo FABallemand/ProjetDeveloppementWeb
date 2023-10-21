@@ -1,0 +1,18 @@
+<ul>
+    {% for cupboard in field.value %}
+    {%- set url = ea_url()
+    .setController('App\\Controller\\Admin\\CupboardCrudController')
+    .setAction('detail')
+    .setEntityId(cupboard.id)
+    -%}
+    <li>
+        <a href="{{ url }}">
+            {{ cupboard }}
+        </a>
+    </li>
+    {% else %}
+</ul>
+<span class="badge badge-secondary">None</span>
+<ul>
+    {% endfor %}
+</ul>

@@ -22,15 +22,33 @@ Association table between the type of entities in the data sheet, their real-lif
 Class diagram:
 ```mermaid
 classDiagram
-Member --* Cupboard : 0..*
-Cupboard --* Shoe : 0..*
+Member *-- Cupboard : 0..*
+Member *-- Shelf : 0..*
+Cupboard *-- Shoe : 0..*
+Shelf o-- Shoe : 0..*
 Member : int id
 Member : string name
+Member : int age
+Member : Collection cupboards
+Member : Collection shelves
 Cupboard : int id
 Cupboard : string name
+Cupboard : Collection shoes
+Cupboard : Member member
 Shoe : int id
 Shoe : string brand
 Shoe : string model
+Shoe : DateTimeInterface purchased
+Shoe : Cupboard cupboard
+Shoe : Collection shelves
+Shelf : int id
+Shelf : string name
+Shelf : string description
+Shelf : bool published
+Shelf : Member member
+Shelf : Collection shoes
+Shelf : DateTimeInterface created
+Shelf : DateTimeInterface updated
 ```
 
 ## 📝 Step-by-step Description

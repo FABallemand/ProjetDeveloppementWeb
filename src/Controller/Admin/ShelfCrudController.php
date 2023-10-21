@@ -29,8 +29,8 @@ class ShelfCrudController extends AbstractCrudController
             BooleanField::new('published'),
             AssociationField::new('shoes'),
             AssociationField::new('shoes')->onlyOnDetail()->setTemplatePath('admin/fields/cupboard_shoes.html.twig'),
-            DateTimeField::new('created'),
-            DateTimeField::new('updated')
+            DateTimeField::new('created')->hideOnIndex(),
+            DateTimeField::new('updated')->hideOnIndex()
         ];
     }
 

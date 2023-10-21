@@ -36,7 +36,7 @@ class Member
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Cupboard::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $cupboards;
 
-    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Shelf::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Shelf::class, orphanRemoval: true, cascade: ['persist'])] 
     private Collection $shelves;
 
     public function __construct()

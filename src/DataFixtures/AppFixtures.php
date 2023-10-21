@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Shoe;
 use App\Entity\Cupboard;
 use App\Entity\Member;
+use App\Entity\Shelf;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -20,16 +21,21 @@ class AppFixtures extends Fixture
     private const TEST_CUPBOARD_2 = 'test-cupboard-2';
     private const SMELLY_CUPBOARD = 'smelly-cupboard';
 
+    // Defines reference names for instances of Cupboard
+    private const TEST_SHELF_1 = 'test-shelf-1';
+    private const TEST_SHELF_2 = 'test-shelf-2';
+    private const BEAUTIFUL_CUPBOARD = 'beautiful-shelf';
+
     /**
-     * Generates initialization data for cupboards : [title, cupboard_reference]
+     * Generates initialization data for cupboards : [cupboard_reference, name, member]
      * @return \\Generator
      */
     private static function getCupboardsData()
     {
-        yield ["Test Cupboard 1", self::TEST_MEMBER_1, self::TEST_CUPBOARD_1];
-        yield ["Test Cupboard 2", self::TEST_MEMBER_2, self::TEST_CUPBOARD_2];
+        yield [self::TEST_CUPBOARD_1, "Test Cupboard 1", self::TEST_MEMBER_1];
+        yield [self::TEST_CUPBOARD_2, "Test Cupboard 2", self::TEST_MEMBER_2];
 
-        yield ["Smelly Cupboard", self::FABIEN, self::SMELLY_CUPBOARD];
+        yield [self::SMELLY_CUPBOARD, "Smelly Cupboard", self::FABIEN];
     }
 
     /**
@@ -49,22 +55,34 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Generates initialization data for members: [name, age]
+     * Generates initialization data for members: [member_reference, name, age]
      * @return \\Generator
      */
     private static function getMembersData()
     {
-        yield ["Test Member 1", 123, self::TEST_MEMBER_1];
-        yield ["Test Member 2", 666, self::TEST_MEMBER_2];
+        yield [self::TEST_MEMBER_1, "Test Member 1", 123];
+        yield [self::TEST_MEMBER_2, "Test Member 2", 666];
 
-        yield ["Fabien", 21, self::FABIEN];
+        yield [self::FABIEN, "Fabien", 21];
+    }
+
+    /**
+     * Generates initialization data for shelves: [shelf_reference, name, description, published, member]
+     * @return \\Generator
+     */
+    private static function getShelvesData()
+    {
+        yield [self::TEST_SHELF_1, "Test Shelf 1", "This is test shelf 1", false, self::TEST_MEMBER_1];
+        yield [self::TEST_SHELF_2, "Test Shelf 2", "This is test shelf 2", true, self::TEST_MEMBER_2];
+        
+        yield [self::BEAUTIFUL_CUPBOARD, "Beautiful shelf", "This is a beautiful shelf", true, self::FABIEN];
     }
 
     public function load(ObjectManager $manager)
     {
         // $inventoryRepo = $manager->getRepository(Cupboard::class);
 
-        foreach(self::getMembersData() as [$name, $age, $memberRreference]) {
+        foreach (self::getMembersData() as [$memberRreference, $name, $age]) {
             $member = new Member();
             $member->setName($name);
             $member->setAge($age);
@@ -76,7 +94,7 @@ class AppFixtures extends Fixture
             $this->addReference($memberRreference, $member);
         }
 
-        foreach (self::getCupboardsData() as [$name, $memberRreference, $cupboardReference]) {
+        foreach (self::getCupboardsData() as [$cupboardReference, $name, $memberRreference]) {
             $cupboard = new Cupboard();
             $cupboard->setName($name);
             // Attribute cupboard to member
@@ -95,6 +113,7 @@ class AppFixtures extends Fixture
             $shoe = new Shoe();
             $shoe->setBrand($brand);
             $shoe->setModel($model);
+            $shoe->setPurchased(new \DateTime());
             // Put the Shoes in its Cupboard
             $cupboard = $this->getReference($cupboardReference);
             $cupboard->addShoe($shoe);
@@ -102,6 +121,23 @@ class AppFixtures extends Fixture
             // Requires ORM\OneToMany attribute on Cupboard::shoes has "cascade: ['persist']"
             $manager->persist($cupboard);
         }
+
+        foreach (self::getShelvesData() as [$shelfReference, $name, $description, $published, $member]) {
+            // Create new Shoes
+            $shelf = new Shelf();
+            $shelf->setName($name);
+            $shelf->setDescription($description);
+            $shelf->setPublished($published);
+            $shelf->setCreated(new \DateTime());
+            $shelf->setUpdated(new \DateTime());
+            // Put the Shoes in its Cupboard
+            $member = $this->getReference($memberRreference);
+            $member->addShelf($shelf);
+
+            // Requires ORM\OneToMany attribute on Cupboard::shoes has "cascade: ['persist']"
+            $manager->persist($member);
+        }
+
         $manager->flush();
     }
 }
