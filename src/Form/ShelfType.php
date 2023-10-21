@@ -24,6 +24,8 @@ class ShelfType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Shelf::class,
+            'shelf_is_new' => false
         ]);
+        $resolver->setAllowedTypes('shelf_is_new', 'bool');
     }
 }

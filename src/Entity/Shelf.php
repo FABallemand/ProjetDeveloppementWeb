@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ShelfRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ShelfRepository::class)]
@@ -48,6 +49,18 @@ class Shelf
      */
     #[ORM\ManyToMany(targetEntity: Shoe::class, inversedBy: 'shelves')]
     private Collection $shoes;
+
+    /**
+     * @var DateTimeInterface Date when the shelf was created
+     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created = null;
+
+    /**
+     * @var DateTimeInterface Date when the shelf was last updated
+     */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $updated = null;
 
     public function __construct()
     {
@@ -137,6 +150,30 @@ class Shelf
     public function removeShoe(Shoe $shoe): static
     {
         $this->shoes->removeElement($shoe);
+
+        return $this;
+    }
+
+    public function getCreated(): ?\DateTimeInterface
+    {
+        return $this->created;
+    }
+
+    public function setCreated(\DateTimeInterface $created): static
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): static
+    {
+        $this->updated = $updated;
 
         return $this;
     }

@@ -6,6 +6,7 @@ use App\Entity\Shoe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class ShoeType extends AbstractType
 {
@@ -14,9 +15,11 @@ class ShoeType extends AbstractType
         $builder
             ->add('brand')
             ->add('model')
+            ->add('purchased', DateType::class, [
+                'widget' => 'single_text'
+            ])
             ->add('cupboard')
-            ->add('shelves')
-        ;
+            ->add('shelves');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

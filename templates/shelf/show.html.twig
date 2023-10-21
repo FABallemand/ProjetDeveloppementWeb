@@ -20,6 +20,14 @@
                 <td>{{ shelf.description }}</td>
             </tr>
             <tr>
+                <th>Created</th>
+                <td>{{ shelf.created ? shelf.created|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{{ shelf.updated ? shelf.updated|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
                 <th>Published</th>
                 <td>{{ shelf.published ? 'Yes' : 'No' }}</td>
             </tr>

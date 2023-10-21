@@ -29,16 +29,18 @@ class ShelfController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $shelf = new Shelf();
-        $form = $this->createForm(ShelfType::class, $shelf);
+        $form = $this->createForm(ShelfType::class, $shelf, ['shelf_is_new' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $shelf->setCreated(new \DateTime());
+            $shelf->setUpdated(new \DateTime());
             $entityManager->persist($shelf);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_shelf_index', [], Response::HTTP_SEE_OTHER);
         }
-
+        
         return $this->render('shelf/new.html.twig', [
             'shelf' => $shelf,
             'form' => $form,
@@ -60,6 +62,7 @@ class ShelfController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $shelf->setUpdated(new \DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('app_shelf_index', [], Response::HTTP_SEE_OTHER);
