@@ -2,30 +2,35 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Cupboard;
+use App\Entity\Shelf;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 
-class CupboardCrudController extends AbstractCrudController
+class ShelfCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Cupboard::class;
+        return Shelf::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name')->setTemplatePath('admin/fields/cupboard_index_name.html.twig'),
+            TextField::new('name'),
+            TextField::new('description'),
+            BooleanField::new('published'),
             AssociationField::new('shoes'),
             AssociationField::new('shoes')->onlyOnDetail()->setTemplatePath('admin/fields/cupboard_shoes.html.twig'),
-            AssociationField::new('member'),
+            DateTimeField::new('created'),
+            DateTimeField::new('updated')
         ];
     }
 
@@ -35,13 +40,4 @@ class CupboardCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
-
-    // TODO
-    // public function configureCrud(Crud $crud): Crud
-    // {
-    //     // Customize the rendering of the row to grey-out the completed Todos
-    //     return $crud
-    //         ->overrideTemplate('crud/index', 'admin/crud/todo_index.html.twig')
-    //     ;
-    // }
 }

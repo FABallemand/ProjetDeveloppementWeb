@@ -290,7 +290,7 @@
 <td class="org-left">ajout de [galerie] dans le back-office</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Shoe;
 use App\Entity\Cupboard;
 use App\Entity\Member;
+use App\Entity\Shelf;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -53,5 +54,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Members', 'fas fa-list', Member::class);
         yield MenuItem::linkToCrud('Cupboards', 'fas fa-list', Cupboard::class);
         yield MenuItem::linkToCrud('Shoes', 'fas fa-list', Shoe::class);
+        yield MenuItem::linkToCrud('Shelves', 'fas fa-list', Shelf::class);
     }
 }

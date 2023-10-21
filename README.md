@@ -89,7 +89,7 @@ See *CHECKLIST.md* for more details.
 - [x] Add galery (**Shelf**) entity
 
 ### Step 13: Galery Administration Board
-- [ ] Add galery (**Shelf**) entities to administration board
+- [x] Add galery (**Shelf**) entities to administration board
 
 ### Step 14: Galery Front-Office CRUD Controller
 - [ ] Add new CRUD controller for galeries (**Shelf**)
