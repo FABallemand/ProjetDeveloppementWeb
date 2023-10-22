@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Controller\Admin;
+
+use Doctrine\ORM\QueryBuilder as BaseQueryBuilder;
+
+class QueryBuilder extends BaseQueryBuilder
+{
+    // You can add any custom methods or configuration specific to your application here.
+}

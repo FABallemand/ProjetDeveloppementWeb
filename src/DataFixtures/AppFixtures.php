@@ -27,7 +27,7 @@ class AppFixtures extends Fixture
     private const BEAUTIFUL_CUPBOARD = 'beautiful-shelf';
 
     /**
-     * Generates initialization data for cupboards : [cupboard_reference, name, member]
+     * Generates initialization data for cupboards : [cupboard_reference, name, member_reference]
      * @return \\Generator
      */
     private static function getCupboardsData()
@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
     }
 
     /**
-     * Generates initialization data for shelves: [shelf_reference, name, description, published, member]
+     * Generates initialization data for shelves: [shelf_reference, name, description, published, member_reference]
      * @return \\Generator
      */
     private static function getShelvesData()
@@ -122,7 +122,7 @@ class AppFixtures extends Fixture
             $manager->persist($cupboard);
         }
 
-        foreach (self::getShelvesData() as [$shelfReference, $name, $description, $published, $member]) {
+        foreach (self::getShelvesData() as [$shelfReference, $name, $description, $published, $memberReference]) {
             // Create new Shelf
             $shelf = new Shelf();
             $shelf->setName($name);
@@ -131,7 +131,7 @@ class AppFixtures extends Fixture
             $shelf->setCreated(new \DateTime());
             $shelf->setUpdated(new \DateTime());
             // Attribute the shelf to a member
-            $member = $this->getReference($memberRreference);
+            $member = $this->getReference($memberReference);
             $member->addShelf($shelf);
             $manager->persist($member);
 
