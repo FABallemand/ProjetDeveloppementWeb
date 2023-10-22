@@ -32,10 +32,15 @@
                 <td>
                     <ul>
                         {% for shelf in shoe.shelves %}
+                        {% dump shelf %}
                             <li><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf }}</a></li>
                         {% endfor %}
                     </ul>
                 </td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img src="{{ vich_uploader_asset(shoe, 'imageFile') }}"/></td>
             </tr>
         </tbody>
     </table>

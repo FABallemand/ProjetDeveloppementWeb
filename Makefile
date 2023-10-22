@@ -5,6 +5,7 @@ PROJECT_DIR := $(shell pwd)
 
 reload_fixtures:
 	symfony console doctrine:database:drop --force
+	rm -fr public/images/
 	symfony console doctrine:database:create
 	symfony console doctrine:schema:create
 	symfony console doctrine:fixtures:load -n
@@ -17,7 +18,7 @@ clean:
 deep_clean:
 	symfony console doctrine:database:drop --force
 	symfony console cache:clear
-	rm -fr composer.lock symfony.lock vendor/ var/cache/
+	rm -fr composer.lock symfony.lock vendor/ var/cache/ public/images/
 	rm -fr .project .settings/
 
 prepare_to_send:

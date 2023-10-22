@@ -227,7 +227,7 @@ make prepar_to_send
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
-- TODO: error edit shoe
+- TODO: error edit shoe (error + cannot add shelf?)
 - TODO: issue edit shelf from easyadmin (query builder)
 
 ## 👤 Author

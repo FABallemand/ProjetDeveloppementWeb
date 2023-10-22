@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Shoe;
+use App\Entity\Cupboard;
 use App\Form\ShoeType;
 use App\Repository\ShoeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,6 +35,12 @@ class ShoeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Change content-type according to image's
+            $imagefile = $shoe->getImageFile();
+            if ($imagefile) {
+                $mimetype = $imagefile->getMimeType();
+                $shoe->setContentType($mimetype);
+            }
             $entityManager->persist($shoe);
             $entityManager->flush();
 
@@ -43,6 +50,36 @@ class ShoeController extends AbstractController
         return $this->render('shoe/new.html.twig', [
             'shoe' => $shoe,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/newincupboard/{id}', name: 'app_shoe_newincupboard', methods: ['GET', 'POST'])]
+    public function newInCupboard(Request $request, EntityManagerInterface $entityManager, Cupboard $cupboard): Response
+    {
+        $shoe = new Shoe();
+        // already set a cupboard, no need to add that field in the form (in ShoeType)
+        $shoe->setCupboard($cupboard);
+
+        $form = $this->createForm(ShoeType::class, $shoe, ['display_cupboard' => false,]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Change content-type according to image's
+            $imagefile = $shoe->getImageFile();
+            if ($imagefile) {
+                $mimetype = $imagefile->getMimeType();
+                $shoe->setContentType($mimetype);
+            }
+            $entityManager->persist($shoe);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_cupboard_show', ['id' => $cupboard->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('shoe/newincupboard.html.twig', [
+            'cupboard' => $cupboard,
+            'shoe' => $shoe,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -75,7 +112,7 @@ class ShoeController extends AbstractController
     #[Route('/{id}', name: 'app_shoe_delete', methods: ['POST'])]
     public function delete(Request $request, Shoe $shoe, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$shoe->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $shoe->getId(), $request->request->get('_token'))) {
             $entityManager->remove($shoe);
             $entityManager->flush();
         }

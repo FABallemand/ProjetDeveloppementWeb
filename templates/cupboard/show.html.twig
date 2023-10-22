@@ -104,6 +104,8 @@
                             <li><a href="{{ path('app_shoe_show', {'id': shoe.id}) }}">{{ shoe }}</a></li>
                         {% endfor %}
                     </ul>
+                    {# CHANGEZ le nom de route une fois le formulaire de création de tâche ajouté #}
+                  <a href="{{ path('app_shoe_newincupboard', {'id' : cupboard.id}) }}">Add new shoe</a>
                 </td>
             </tr>
         </tbody>
