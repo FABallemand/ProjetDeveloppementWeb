@@ -228,8 +228,6 @@ make prepar_to_send
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
 - TODO: error edit shoe
-- TODO: shelf single shoe in edit
-- TODO: edit page not pretty
 - TODO: issue edit shelf from easyadmin (query builder)
 
 ## 👤 Author
