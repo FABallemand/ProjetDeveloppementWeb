@@ -117,7 +117,7 @@ See *CHECKLIST.md* for more details.
 - [x] ...
 
 ### Step 16: Galery Browsing
-- [ ] ...
+- [x] Add context for galery (**Shelf**) browsing
 
 ### Step 17: Acces Contextualisation & Permited Operations Restrictions
 - [ ] Add CRUD controller for member entity

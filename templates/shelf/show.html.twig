@@ -40,13 +40,22 @@
                 <td>
                     <ul>
                         {% for shoe in shelf.shoes %}
-                            <li><a href="{{ path('app_shoe_show', {'id': shoe.id}) }}">{{ shoe }}</a></li>
+                            <li>
+                                <a href="{{ path('app_shelf_shoe_show', {'shelf_id': shelf.id, 'shoe_id': shoe.id}) }}">
+                                    {{ shoe }}
+                                </a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    {# {{ dump(shelf) }}
+    {% for shoe in shelf.shoes %}
+        {{ dump(shoe) }}
+    {% endfor %} #}
 
     <div class="p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center"><a class="btn btn-info mt-auto" href="{{ path('app_shelf_index') }}">Back to list</a></div>
