@@ -40,6 +40,8 @@ class ShelfController extends AbstractController
             $entityManager->persist($shelf);
             $entityManager->flush();
 
+            $this->addFlash('message', 'Shelf successfully wall-mounted!');
+
             return $this->redirectToRoute('app_shelf_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -88,6 +90,8 @@ class ShelfController extends AbstractController
             $shelf->setUpdated(new \DateTime());
             $entityManager->flush();
 
+            $this->addFlash('message', 'Shelf successfully straightened!');
+
             return $this->redirectToRoute('app_shelf_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -103,6 +107,8 @@ class ShelfController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $shelf->getId(), $request->request->get('_token'))) {
             $entityManager->remove($shelf);
             $entityManager->flush();
+
+            $this->addFlash('delete', 'Shelf successfully removed from the wall...');
         }
 
         return $this->redirectToRoute('app_shelf_index', [], Response::HTTP_SEE_OTHER);

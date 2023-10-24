@@ -36,6 +36,8 @@ class CupboardController extends AbstractController
             $entityManager->persist($cupboard);
             $entityManager->flush();
 
+            $this->addFlash('message', 'Cupboard successfully built!');
+
             return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -62,6 +64,8 @@ class CupboardController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('message', 'Cupboard successfully repaired!');
+
             return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -77,6 +81,8 @@ class CupboardController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$cupboard->getId(), $request->request->get('_token'))) {
             $entityManager->remove($cupboard);
             $entityManager->flush();
+
+            $this->addFlash('delete', 'Cupboard successfully destroyed...');
         }
 
         return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);

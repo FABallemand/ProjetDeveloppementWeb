@@ -33,6 +33,8 @@ class MemberController extends AbstractController
             $entityManager->persist($member);
             $entityManager->flush();
 
+            $this->addFlash('message', 'Member successfully created!');
+
             return $this->redirectToRoute('app_member_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -59,6 +61,8 @@ class MemberController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('message', 'Member successfully modified!');
+
             return $this->redirectToRoute('app_member_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -74,6 +78,8 @@ class MemberController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) {
             $entityManager->remove($member);
             $entityManager->flush();
+
+            $this->addFlash('delete', 'Member successfully deleted...');
         }
 
         return $this->redirectToRoute('app_member_index', [], Response::HTTP_SEE_OTHER);

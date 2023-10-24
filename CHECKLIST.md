@@ -316,8 +316,8 @@
 <td class="org-right">17</td>
 <td class="org-left">ajout de la consultation des [objets] depuis les [galeries] publiques</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
-<td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">TP 7</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -326,7 +326,7 @@
 <td class="org-left">ajout d'un contrôleur CRUD pour Membres</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -451,8 +451,8 @@
 <td class="org-right">32</td>
 <td class="org-left">utilisation des messages flash pour les CRUDs</td>
 <td class="org-left">OPTIONNEL</td>
-<td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">TP 8</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -460,7 +460,7 @@
 <td class="org-right">33</td>
 <td class="org-left">ajout d'une gestion de marque-pages/panier dans le front-office</td>
 <td class="org-left">OPTIONNEL</td>
-<td class="org-left">TP 9</td>
+<td class="org-left">TP 8</td>
 <td class="org-left">&nbsp;</td>
 </tr>
 </tbody>

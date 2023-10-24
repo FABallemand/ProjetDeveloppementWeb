@@ -44,6 +44,8 @@ class ShoeController extends AbstractController
             $entityManager->persist($shoe);
             $entityManager->flush();
 
+            $this->addFlash('message', 'Shoe successfully bought!');
+
             return $this->redirectToRoute('app_shoe_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -73,6 +75,8 @@ class ShoeController extends AbstractController
             $entityManager->persist($shoe);
             $entityManager->flush();
 
+            $this->addFlash('message', 'Shoe successfully stored inside cupboard!');
+
             return $this->redirectToRoute('app_cupboard_show', ['id' => $cupboard->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -100,6 +104,8 @@ class ShoeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('message', 'Shoe successfully cleaned!');
+
             return $this->redirectToRoute('app_shoe_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -115,6 +121,8 @@ class ShoeController extends AbstractController
         if ($this->isCsrfTokenValid('delete' . $shoe->getId(), $request->request->get('_token'))) {
             $entityManager->remove($shoe);
             $entityManager->flush();
+
+            $this->addFlash('delete', 'Shoe successfully thrown...');
         }
 
         return $this->redirectToRoute('app_shoe_index', [], Response::HTTP_SEE_OTHER);
