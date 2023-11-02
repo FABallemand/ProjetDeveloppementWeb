@@ -353,7 +353,7 @@
 <td class="org-left">contextualisation de la création d'un [objet] en fonction de l'[inventaire]</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -371,7 +371,7 @@
 <td class="org-left">affichage des seules galeries publiques</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -386,7 +386,7 @@
 <tbody>
 <tr>
 <td class="org-right">25</td>
-<td class="org-left">ajout des <i>Utiisateurs</i> au modèle de données et du lien utilisateur - membre</td>
+<td class="org-left">ajout des <i>Utilisateurs</i> au modèle de données et du lien utilisateur - membre</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP 9</td>
 <td class="org-left">&nbsp;</td>
@@ -398,7 +398,7 @@
 <td class="org-left">ajout de l'authentification</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP 9</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -443,7 +443,7 @@
 <td class="org-left">ajout de la gestion de la mise en ligne d'images pour des photos dans les [objet]</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">TP 8</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>

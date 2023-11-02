@@ -44,7 +44,8 @@ class ShelfCrudController extends AbstractCrudController
             AssociationField::new('member'),
             TextField::new('description')->hideOnIndex(),
             // BooleanField::new('published')->onlyOnForms()->hideWhenCreating(),
-            BooleanField::new('published')->hideOnIndex()->hideWhenCreating(),
+            // BooleanField::new('published')->hideOnIndex()->hideWhenCreating(),
+            BooleanField::new('published')->hideWhenCreating()->renderAsSwitch(false),
             AssociationField::new('shoes')
                 ->onlyOnForms()
                 // on ne souhaite pas gérer l'association entre les

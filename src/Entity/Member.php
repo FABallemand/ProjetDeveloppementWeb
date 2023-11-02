@@ -39,6 +39,10 @@ class Member
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Shelf::class, orphanRemoval: true, cascade: ['persist'])] 
     private Collection $shelves;
 
+    #[ORM\OneToOne(mappedBy: 'member', cascade: ['persist', 'remove'])]
+    // #[ORM\JoinColumn(nullable: true)] ??
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->cupboards = new ArrayCollection();
@@ -140,6 +144,23 @@ class Member
                 $shelf->setMember(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): static
+    {
+        // set the owning side of the relation if necessary
+        if ($user->getMember() !== $this) {
+            $user->setMember($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }

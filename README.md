@@ -147,7 +147,7 @@ See *CHECKLIST.md* for more details.
 - [ ] Remove objects (**Shoe**) from deleted inventories (**Cupboard**)
 - [ ] ManyToMany relations management
 
-### Step 23: Have fun !!
+### Step 23: Have fun!!
 
 ## 🔗 Useful Links
 - [GitHub Repository](https://github.com/FABallemand/ProjetDeveloppementWeb)

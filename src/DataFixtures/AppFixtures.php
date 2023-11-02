@@ -6,6 +6,7 @@ use App\Entity\Shoe;
 use App\Entity\Cupboard;
 use App\Entity\Member;
 use App\Entity\Shelf;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -63,15 +64,15 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * Generates initialization data for members: [member_reference, name, age]
+     * Generates initialization data for members: [member_reference, name, age, user_email]
      * @return \\Generator
      */
     private static function getMembersData()
     {
-        yield [self::TEST_MEMBER_1, "Test Member 1", 123];
-        yield [self::TEST_MEMBER_2, "Test Member 2", 666];
+        yield [self::TEST_MEMBER_1, "Test Member 1", 123, "user_1@localhost"];
+        yield [self::TEST_MEMBER_2, "Test Member 2", 666, "user_2@localhost"];
 
-        yield [self::FABIEN, "Fabien", 21];
+        yield [self::FABIEN, "Fabien", 21, "fabien@localhost"];
     }
 
     /**
@@ -90,10 +91,16 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     {
         // $inventoryRepo = $manager->getRepository(Cupboard::class);
 
-        foreach (self::getMembersData() as [$memberRreference, $name, $age]) {
+        foreach (self::getMembersData() as [$memberRreference, $name, $age, $userEmail]) {
             $member = new Member();
             $member->setName($name);
             $member->setAge($age);
+            if ($userEmail) {
+                $user = $manager->getRepository(User::class)->findOneByEmail($userEmail);
+                if ($user) {
+                    $member->setUser($user);
+                }
+            }
             $manager->persist($member);
 
             // Once the Member instance has been saved to DB
