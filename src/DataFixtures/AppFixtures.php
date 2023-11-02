@@ -8,9 +8,17 @@ use App\Entity\Member;
 use App\Entity\Shelf;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class AppFixtures extends Fixture
+class AppFixtures extends Fixture implements DependentFixtureInterface
 {
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
+
     // Defines reference names for instances of Member
     private const TEST_MEMBER_1 = 'test-member-1';
     private const TEST_MEMBER_2 = 'test-member-2';
@@ -74,7 +82,7 @@ class AppFixtures extends Fixture
     {
         yield [self::TEST_SHELF_1, "Test Shelf 1", "This is test shelf 1", false, self::TEST_MEMBER_1];
         yield [self::TEST_SHELF_2, "Test Shelf 2", "This is test shelf 2", true, self::TEST_MEMBER_2];
-        
+
         yield [self::BEAUTIFUL_CUPBOARD, "Beautiful shelf", "This is a beautiful shelf", true, self::FABIEN];
     }
 

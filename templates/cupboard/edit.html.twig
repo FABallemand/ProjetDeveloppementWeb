@@ -11,5 +11,8 @@
         <div class="text-center"><a class="btn btn-info mt-auto" href="{{ path('app_cupboard_index') }}">Back to list</a></div>
     </div>
 
-    {{ include('cupboard/_delete_form.html.twig') }}
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('cupboard/_delete_form.html.twig') }}
+    {% endif %}
+    
 {% endblock %}

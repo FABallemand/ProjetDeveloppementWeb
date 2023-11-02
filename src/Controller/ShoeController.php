@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Shoe Controller
@@ -96,6 +97,7 @@ class ShoeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_shoe_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Shoe $shoe, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ShoeType::class, $shoe);
@@ -116,8 +118,13 @@ class ShoeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_shoe_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Shoe $shoe, EntityManagerInterface $entityManager): Response
     {
+        // if ($shoe->isCompleted() == false) {
+        //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // }
+
         if ($this->isCsrfTokenValid('delete' . $shoe->getId(), $request->request->get('_token'))) {
             $entityManager->remove($shoe);
             $entityManager->flush();

@@ -130,7 +130,7 @@ See *CHECKLIST.md* for more details.
 - [x] Contextualise adding an object (**Shoe**) to a galery (**Shelf**)
 
 ### Step 19: Authentification
-- [ ] Add authentification
+- [x] Add authentification
 
 ### Step 20: Acces Control
 - [ ] Read only access for members
@@ -231,6 +231,7 @@ make prepar_to_send
 - TODO: issue edit shelf from easyadmin (query builder)
 - TODO: "Supprimez l’accès à la consultation des inventaires", contextualise shoe and cupboard creation, STEP 17
 - TODO: Contextualise adding an object (**Shoe**) to a galery (**Shelf**), STEP 18
+- TODO: fix login page style
 
 ## 👤 Author
 - Fabien ALLEMAND

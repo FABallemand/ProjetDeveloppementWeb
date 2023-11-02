@@ -29,9 +29,12 @@
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_cupboard_show', {'id': cupboard.id}) }}">Show details</a></div>
                         </div>
+                        
+                        {% if is_granted('ROLE_USER') %}
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{{ path('app_cupboard_edit', {'id': cupboard.id}) }}">Edit</a></div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %} {# shoes #}            
@@ -59,7 +62,9 @@
                 <td>{{ cupboard.name }}</td>
                 <td>
                     <a href="{{ path('app_cupboard_show', {'id': cupboard.id}) }}">show</a>
+                    {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('app_cupboard_edit', {'id': cupboard.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
