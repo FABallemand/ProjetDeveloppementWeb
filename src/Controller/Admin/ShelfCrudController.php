@@ -40,6 +40,7 @@ class ShelfCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
+            TextField::new('name'),
             AssociationField::new('member'),
             TextField::new('description')->hideOnIndex(),
             // BooleanField::new('published')->onlyOnForms()->hideWhenCreating(),

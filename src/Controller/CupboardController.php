@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cupboard;
+use App\Entity\Member;
 use App\Form\CupboardType;
 use App\Repository\CupboardRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,11 +26,34 @@ class CupboardController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_cupboard_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    // #[Route('/new', name: 'app_cupboard_new', methods: ['GET', 'POST'])]
+    // public function new(Request $request, EntityManagerInterface $entityManager): Response
+    // {
+    //     $cupboard = new Cupboard();
+    //     $form = $this->createForm(CupboardType::class, $cupboard);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $entityManager->persist($cupboard);
+    //         $entityManager->flush();
+
+    //         $this->addFlash('message', 'Cupboard successfully built!');
+
+    //         return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);
+    //     }
+
+    //     return $this->render('cupboard/new.html.twig', [
+    //         'cupboard' => $cupboard,
+    //         'form' => $form,
+    //     ]);
+    // }
+
+    #[Route('/new/{id}', name: 'app_cupboard_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, Member $member): Response
     {
         $cupboard = new Cupboard();
-        $form = $this->createForm(CupboardType::class, $cupboard);
+        $cupboard->setMember($member);
+        $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false,]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

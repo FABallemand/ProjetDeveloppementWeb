@@ -26,7 +26,8 @@ class ShoeCrudController extends AbstractCrudController
             TextField::new('brand')->setTemplatePath('admin/fields/shoe_index_brand.html.twig'),
             TextField::new('model')->setTemplatePath('admin/fields/shoe_index_model.html.twig'),
             DateField::new('purchased')->hideOnIndex(),
-            AssociationField::new('cupboard')
+            AssociationField::new('cupboard'),
+            AssociationField::new('shelves')->hideOnIndex()
         ];
     }
 

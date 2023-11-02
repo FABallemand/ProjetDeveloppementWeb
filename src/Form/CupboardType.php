@@ -11,16 +11,20 @@ class CupboardType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('name')
-            ->add('member')
-        ;
+        $builder->add('name');
+
+        if($options['display_member']) 
+        {
+            $builder->add('member');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Cupboard::class,
+            'display_member' => true
         ]);
+        $resolver->setAllowedTypes('display_member', 'bool');
     }
 }

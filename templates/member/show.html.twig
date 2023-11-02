@@ -94,6 +94,7 @@
                         {% for cupboard in member.cupboards %}
                             <li><a href="{{ path('app_cupboard_show', {'id': cupboard.id}) }}">{{ cupboard }}</a></li>
                         {% endfor %}
+                        <a href="{{ path('app_cupboard_new', {'id': member.id}) }}">Add new inventory</a>
                     </ul>
                 </td>
             </tr>

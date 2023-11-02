@@ -120,9 +120,9 @@ See *CHECKLIST.md* for more details.
 - [x] Add context for galery (**Shelf**) browsing
 
 ### Step 17: Acces Contextualisation & Permited Operations Restrictions
-- [ ] Add CRUD controller for member entity
-- [ ] Contextualise inventory (**Cupboard**) creation
-- [ ] Contextualise object (**Shoe**) creation
+- [x] Add CRUD controller for member (**Member**) entity
+- [x] Contextualise inventory (**Cupboard**) creation
+- [x] Contextualise object (**Shoe**) creation
   
 ### Step 18: Galerie's Objects Management
 - [ ] Contextualise galery (**Shelf**) creation
@@ -227,8 +227,9 @@ make prepar_to_send
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
-- TODO: error edit shoe (error + cannot add shelf?)
+- TODO: error edit shoe (cannot add shelf?)
 - TODO: issue edit shelf from easyadmin (query builder)
+- TODO: "Supprimez l’accès à la consultation des inventaires", contextualise shoe and cupboard creation, STEP 17
 
 ## 👤 Author
 - Fabien ALLEMAND
