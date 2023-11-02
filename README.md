@@ -125,9 +125,9 @@ See *CHECKLIST.md* for more details.
 - [x] Contextualise object (**Shoe**) creation
   
 ### Step 18: Galerie's Objects Management
-- [ ] Contextualise galery (**Shelf**) creation
-- [ ] Contextualise public galeries (**Shelf**) display
-- [ ] Contextualise adding an object (**Shoe**) to a galery (**Shelf**)
+- [x] Contextualise galery (**Shelf**) creation
+- [x] Contextualise public galeries (**Shelf**) display
+- [x] Contextualise adding an object (**Shoe**) to a galery (**Shelf**)
 
 ### Step 19: Authentification
 - [ ] Add authentification
@@ -230,6 +230,7 @@ make prepar_to_send
 - TODO: error edit shoe (cannot add shelf?)
 - TODO: issue edit shelf from easyadmin (query builder)
 - TODO: "Supprimez l’accès à la consultation des inventaires", contextualise shoe and cupboard creation, STEP 17
+- TODO: Contextualise adding an object (**Shoe**) to a galery (**Shelf**), STEP 18
 
 ## 👤 Author
 - Fabien ALLEMAND

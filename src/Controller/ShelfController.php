@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Shelf;
 use App\Entity\Shoe;
+use App\Entity\Member;
 use App\Form\ShelfType;
 use App\Repository\ShelfRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +24,7 @@ class ShelfController extends AbstractController
     public function index(ShelfRepository $shelfRepository): Response
     {
         return $this->render('shelf/index.html.twig', [
-            'shelves' => $shelfRepository->findAll(),
+            'shelves' => $shelfRepository->findBy(['published' => true]),
         ]);
     }
 
@@ -37,6 +38,29 @@ class ShelfController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $shelf->setCreated(new \DateTime());
             $shelf->setUpdated(new \DateTime());
+            $entityManager->persist($shelf);
+            $entityManager->flush();
+
+            $this->addFlash('message', 'Shelf successfully wall-mounted!');
+
+            return $this->redirectToRoute('app_shelf_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('shelf/new.html.twig', [
+            'shelf' => $shelf,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/new/{id}', name: 'app_shelf_newinmember', methods: ['GET', 'POST'])]
+    public function newInMember(Request $request, EntityManagerInterface $entityManager, Member $member): Response
+    {
+        $shelf = new Shelf();
+        $shelf->setMember($member);
+        $form = $this->createForm(ShelfType::class, $shelf, ['display_member' => false,]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($shelf);
             $entityManager->flush();
 
