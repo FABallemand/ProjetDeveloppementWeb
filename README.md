@@ -144,8 +144,8 @@ See *CHECKLIST.md* for more details.
 - [x] Objects (**Shoe**) and inventories (**Cupboard**) display
 
 ### Step 22: Data Removal
-- [ ] Remove objects (**Shoe**) from deleted inventories (**Cupboard**)
-- [ ] ManyToMany relations management
+- [x] Remove objects (**Shoe**) from deleted inventories (**Cupboard**)
+- [x] ManyToMany relations management
 
 ### Step 23: Have fun!!
 

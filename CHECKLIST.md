@@ -434,7 +434,7 @@
 <td class="org-left">gestion de la suppression</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>

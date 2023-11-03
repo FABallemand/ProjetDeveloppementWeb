@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Shelf;
+use App\Entity\Shoe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,28 +22,26 @@ class ShelfRepository extends ServiceEntityRepository
         parent::__construct($registry, Shelf::class);
     }
 
-//    /**
-//     * @return Shelf[] Returns an array of Shelf objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return [Galerie][] Returns an array of [Galerie] objects
+     */
+    public function findByShoe(Shoe $shoe): array
+    {
+        return $this->createQueryBuilder('shelf')
+            ->leftJoin('shelf.shoes', 'shoes')
+            ->andWhere('shoes = :shoe')
+            ->setParameter('shoe', $shoe)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Shelf
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Shelf
+    //    {
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

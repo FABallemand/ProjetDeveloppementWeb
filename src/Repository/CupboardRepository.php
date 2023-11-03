@@ -30,8 +30,24 @@ class CupboardRepository extends ServiceEntityRepository
         }
     }
 
+    // public function remove(Cupboard $entity, bool $flush = false): void
+    // {
+    //     $this->getEntityManager()->remove($entity);
+
+    //     if ($flush) {
+    //         $this->getEntityManager()->flush();
+    //     }
+    // }
+
     public function remove(Cupboard $entity, bool $flush = false): void
     {
+        $shoeRepository = $this->getEntityManager()->getRepository(Shoe::class);
+
+        // clean the shoes properly
+        $shoes = $entity->getShoes();
+        foreach ($shoes as $shoe) {
+            $shoeRepository->remove($shoe, $flush);
+        }
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

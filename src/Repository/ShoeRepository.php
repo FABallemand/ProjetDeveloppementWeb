@@ -33,6 +33,18 @@ class ShoeRepository extends ServiceEntityRepository
 
     public function remove(Shoe $entity, bool $flush = false): void
     {
+        $shelfRepository = $this->getEntityManager()->getRepository(Shelf::class);
+
+        // get rid of the ManyToMany relations with shelves
+        $shelves = $shelfRepository->findByShoe($entity);
+        foreach ($shelves as $shelf) {
+            $shelf->removeShoe($entity);
+            $this->getEntityManager()->persist($shelf);
+        }
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

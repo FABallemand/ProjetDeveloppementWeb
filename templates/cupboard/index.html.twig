@@ -43,9 +43,17 @@
         </div>
     </section>
 
+    {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
     <div class="p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center"><a class="btn btn-success mt-auto" href="{{ path('app_cupboard_newinmember', {'id': member.id}) }}">Create new</a></div>
     </div>
+    {% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center"><a class="btn btn-success mt-auto" href="{{ path('app_cupboard_new') }}">Create new</a></div>
+    </div>
+    {% endif %}
 
     <table class="table">
         <thead>
