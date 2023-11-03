@@ -140,8 +140,8 @@ See *CHECKLIST.md* for more details.
 - [x] Access to objects (**Shoe**) inside non-public galeries (**Shelf**)
 
 ### Step 21: Data Loading Contextualisation
-- [ ] Galeries (**Shelf**) display
-- [ ] Objects (**Shoe**) and inventories (**Cupboard**) display
+- [x] Galeries (**Shelf**) display
+- [x] Objects (**Shoe**) and inventories (**Cupboard**) display
 
 ### Step 22: Data Removal
 - [ ] Remove objects (**Shoe**) from deleted inventories (**Cupboard**)

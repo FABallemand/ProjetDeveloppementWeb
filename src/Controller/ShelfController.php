@@ -24,26 +24,26 @@ class ShelfController extends AbstractController
     #[Route('/', name: 'app_shelf_index', methods: ['GET'])]
     public function index(ShelfRepository $shelfRepository): Response
     {
-        $shelves = array();
         $member = null;
+        $privateShelves = array();
+        $publicShelves = $shelfRepository->findBy(['published' => true]);
         if ($this->isGranted('ROLE_ADMIN')) {
-            $shelves = $shelfRepository->findAll();
             $member = $this->getUser()->getMember();
+            $privateShelves = $shelfRepository->findAll();
         } else {
-            $shelves = $shelfRepository->findBy(['published' => true]);
             $user = $this->getUser();
             if ($user) {
                 $member = $user->getMember();
                 if ($member) {
-                    $memberShelves = $shelfRepository->findBy(['member' => $member]);
-                    $shelves = array_merge($shelves, $memberShelves);
+                    $privateShelves = $shelfRepository->findBy(['member' => $member]);
                 }
             }
         }
 
         return $this->render('shelf/index.html.twig', [
-            'shelves' => $shelves,
             'member' => $member,
+            'private_shelves' => $privateShelves,
+            'public_shelves' => $publicShelves,
         ]);
     }
 

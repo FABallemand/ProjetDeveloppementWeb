@@ -24,23 +24,26 @@ class ShoeController extends AbstractController
 
     #[Route('/', name: 'app_shoe_index', methods: ['GET'])]
     public function index(ShoeRepository $shoeRepository): Response
-    {
+    {   
+        $shoes = array();
         if ($this->isGranted('ROLE_ADMIN')) {
-            return $this->render('shoe/index.html.twig', [
-                'shoes' => $shoeRepository->findAll(),
-            ]);
+            $shoes = $shoeRepository->findAll();
         } else {
             // Retrieve shoes stored inside cupboard owned by current member
             // Avoid creating a query builder...
-            $shoes = array();
-            $cupboards = $this->getUser()->getMember()->getCupboards();
-            foreach ($cupboards as $cupboard) {
-                $shoes = array_merge($shoes, $cupboard->getShoes()->toArray());
-            }
-            return $this->render('shoe/index.html.twig', [
-                'shoes' => $shoeRepository->findBy(['cupboard' => $shoes]),
-            ]);
+            // $cupboards = $this->getUser()->getMember()->getCupboards();
+            // foreach ($cupboards as $cupboard) {
+            //     $shoes = array_merge($shoes, $cupboard->getShoes()->toArray());
+            // }
+            // $shoes = $shoeRepository->findBy(['cupboard' => $shoes]);
+
+            $member = $this->getUser()->getMember();
+            $shoes = $shoeRepository->findByMember($member);
         }
+
+        return $this->render('shoe/index.html.twig', [
+            'shoes' => $shoes,
+        ]);
     }
 
     #[Route('/new', name: 'app_shoe_new', methods: ['GET', 'POST'])]

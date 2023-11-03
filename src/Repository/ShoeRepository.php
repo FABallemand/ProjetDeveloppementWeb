@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Shoe;
+use App\Entity\Member;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,20 +40,18 @@ class ShoeRepository extends ServiceEntityRepository
         }
     }
 
-    //    /**
-    //     * @return Shoe[] Returns an array of Shoe objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * @return Shoe[] Returns an array of Shoe objects
+     */
+    public function findByMember(Member $member): array
+    {
+        return $this->createQueryBuilder('shoe')
+            ->leftJoin('shoe.cupboard', 'cupboard')
+            ->andWhere('cupboard.member = :member')
+            ->setParameter('member', $member)
+            ->getQuery()
+            ->getResult();
+    }
 
     //    public function findOneBySomeField($value): ?Shoe
     //    {
