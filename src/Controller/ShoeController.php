@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Shoe;
 use App\Entity\Cupboard;
+use App\Entity\Member;
 use App\Form\ShoeType;
 use App\Repository\ShoeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,18 +18,33 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * Shoe Controller
  */
 #[Route('/shoe')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class ShoeController extends AbstractController
 {
 
     #[Route('/', name: 'app_shoe_index', methods: ['GET'])]
     public function index(ShoeRepository $shoeRepository): Response
     {
-        return $this->render('shoe/index.html.twig', [
-            'shoes' => $shoeRepository->findAll(),
-        ]);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            return $this->render('shoe/index.html.twig', [
+                'shoes' => $shoeRepository->findAll(),
+            ]);
+        } else {
+            // Retrieve shoes stored inside cupboard owned by current member
+            // Avoid creating a query builder...
+            $shoes = array();
+            $cupboards = $this->getUser()->getMember()->getCupboards();
+            foreach ($cupboards as $cupboard) {
+                $shoes = array_merge($shoes, $cupboard->getShoes()->toArray());
+            }
+            return $this->render('shoe/index.html.twig', [
+                'shoes' => $shoeRepository->findBy(['cupboard' => $shoes]),
+            ]);
+        }
     }
 
     #[Route('/new', name: 'app_shoe_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $shoe = new Shoe();
@@ -59,6 +75,11 @@ class ShoeController extends AbstractController
     #[Route('/newincupboard/{id}', name: 'app_shoe_newincupboard', methods: ['GET', 'POST'])]
     public function newInCupboard(Request $request, EntityManagerInterface $entityManager, Cupboard $cupboard): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access another member's cupboard!");
+        }
+
         $shoe = new Shoe();
         // already set a cupboard, no need to add that field in the form (in ShoeType)
         $shoe->setCupboard($cupboard);
@@ -91,6 +112,11 @@ class ShoeController extends AbstractController
     #[Route('/{id}', name: 'app_shoe_show', methods: ['GET'])]
     public function show(Shoe $shoe): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shoe->getCupboard()->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access another member's shoe from his cupboard!");
+        }
+
         return $this->render('shoe/show.html.twig', [
             'shoe' => $shoe,
         ]);
@@ -100,6 +126,11 @@ class ShoeController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Shoe $shoe, EntityManagerInterface $entityManager): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shoe->getCupboard()->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot edit another member's shoe!");
+        }
+
         $form = $this->createForm(ShoeType::class, $shoe);
         $form->handleRequest($request);
 
@@ -121,6 +152,11 @@ class ShoeController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Shoe $shoe, EntityManagerInterface $entityManager): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shoe->getCupboard()->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot delete another member's shoe!");
+        }
+
         // if ($shoe->isCompleted() == false) {
         //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
         // }

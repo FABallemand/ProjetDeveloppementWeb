@@ -10,8 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Member Controller
+ */
 #[Route('/member')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class MemberController extends AbstractController
 {
     #[Route('/', name: 'app_member_index', methods: ['GET'])]
@@ -53,8 +58,14 @@ class MemberController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_member_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function edit(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot edit another member's profile!");
+        }
+
         $form = $this->createForm(MemberType::class, $member);
         $form->handleRequest($request);
 
@@ -73,9 +84,15 @@ class MemberController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_member_delete', methods: ['POST'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function delete(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$member->getId(), $request->request->get('_token'))) {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot delete another member's profile!");
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $member->getId(), $request->request->get('_token'))) {
             $entityManager->remove($member);
             $entityManager->flush();
 

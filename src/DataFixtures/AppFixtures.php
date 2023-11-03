@@ -33,7 +33,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     // Defines reference names for instances of Cupboard
     private const TEST_SHELF_1 = 'test-shelf-1';
     private const TEST_SHELF_2 = 'test-shelf-2';
-    private const BEAUTIFUL_CUPBOARD = 'beautiful-shelf';
+    private const BEAUTIFUL_SHELF = 'beautiful-shelf';
 
     /**
      * Generates initialization data for cupboards : [cupboard_reference, name, member_reference]
@@ -48,19 +48,19 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
     }
 
     /**
-     * Generates initialization data for shoes: [brand, model, cupboard_reference]
+     * Generates initialization data for shoes: [brand, model, cupboard_reference, shelf_reference]
      * @return \\Generator
      */
     private static function getShoesData()
     {
-        yield ["Test Brand 1", "", self::TEST_CUPBOARD_1];
-        yield ["Test Brand 2", "Model 1", self::TEST_CUPBOARD_1];
+        yield ["Test Brand 1", "", self::TEST_CUPBOARD_1, self::TEST_SHELF_1];
+        yield ["Test Brand 2", "Model 1", self::TEST_CUPBOARD_1, self::TEST_SHELF_2];
 
-        yield ["Kalenji", "Run Active", self::SMELLY_CUPBOARD];
-        yield ["Kalenji", "kiprun XT7", self::SMELLY_CUPBOARD];
-        yield ["Asics", "Gel-tarbuco 11", self::SMELLY_CUPBOARD];
-        yield ["Quechua", "", self::SMELLY_CUPBOARD];
-        yield ["Salomon", "X Ultra Mid 3 GTX", self::SMELLY_CUPBOARD];
+        yield ["Kalenji", "Run Active", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
+        yield ["Kalenji", "kiprun XT7", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
+        yield ["Asics", "Gel-tarbuco 11", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
+        yield ["Quechua", "", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
+        yield ["Salomon", "X Ultra Mid 3 GTX", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
     }
 
     /**
@@ -84,7 +84,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
         yield [self::TEST_SHELF_1, "Test Shelf 1", "This is test shelf 1", false, self::TEST_MEMBER_1];
         yield [self::TEST_SHELF_2, "Test Shelf 2", "This is test shelf 2", true, self::TEST_MEMBER_2];
 
-        yield [self::BEAUTIFUL_CUPBOARD, "Beautiful shelf", "This is a beautiful shelf", true, self::FABIEN];
+        yield [self::BEAUTIFUL_SHELF, "Beautiful shelf", "This is a beautiful shelf", true, self::FABIEN];
     }
 
     public function load(ObjectManager $manager)
@@ -123,20 +123,6 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
             $this->addReference($cupboardReference, $cupboard);
         }
 
-        foreach (self::getShoesData() as [$brand, $model, $cupboardReference]) {
-            // Create new Shoes
-            $shoe = new Shoe();
-            $shoe->setBrand($brand);
-            $shoe->setModel($model);
-            $shoe->setPurchased(new \DateTime());
-            // Put the Shoes in its Cupboard
-            $cupboard = $this->getReference($cupboardReference);
-            $cupboard->addShoe($shoe);
-
-            // Requires ORM\OneToMany attribute on Cupboard::shoes has "cascade: ['persist']"
-            $manager->persist($cupboard);
-        }
-
         foreach (self::getShelvesData() as [$shelfReference, $name, $description, $published, $memberReference]) {
             // Create new Shelf
             $shelf = new Shelf();
@@ -151,6 +137,22 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($member);
 
             $this->addReference($shelfReference, $shelf);
+        }
+
+        foreach (self::getShoesData() as [$brand, $model, $cupboardReference, $shelfReference]) {
+            // Create new Shoes
+            $shoe = new Shoe();
+            $shoe->setBrand($brand);
+            $shoe->setModel($model);
+            $shoe->setPurchased(new \DateTime());
+            // Put the Shoes in its Cupboard
+            $cupboard = $this->getReference($cupboardReference);
+            $cupboard->addShoe($shoe);
+            $manager->persist($cupboard);
+            // Put the Shoes on a Shelf (on a single shelf for testing purpose)
+            $shelf = $this->getReference($shelfReference);
+            $shoe->addShelf($shelf);
+            $manager->persist($shoe);
         }
 
         $manager->flush();

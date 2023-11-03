@@ -17,17 +17,28 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * Cupboard Controller
  */
 #[Route('/cupboard')]
+#[IsGranted('IS_AUTHENTICATED_FULLY')]
 class CupboardController extends AbstractController
 {
     #[Route('/', name: 'app_cupboard_index', methods: ['GET'])]
     public function index(CupboardRepository $cupboardRepository): Response
     {
+        $cupboards = array();
+        $member = $this->getUser()->getMember();
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $cupboards = $cupboardRepository->findAll();
+        } else {
+            $cupboards = $cupboardRepository->findBy(['member' => $member]);
+        }
+
         return $this->render('cupboard/index.html.twig', [
-            'cupboards' => $cupboardRepository->findAll(),
+            'cupboards' => $cupboards,
+            'member' => $member,
         ]);
     }
 
     #[Route('/new', name: 'app_cupboard_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $cupboard = new Cupboard();
@@ -75,6 +86,11 @@ class CupboardController extends AbstractController
     #[Route('/{id}', name: 'app_cupboard_show', methods: ['GET'])]
     public function show(Cupboard $cupboard): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access another member's cupboard!");
+        }
+
         return $this->render('cupboard/show.html.twig', [
             'cupboard' => $cupboard,
         ]);
@@ -84,7 +100,12 @@ class CupboardController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CupboardType::class, $cupboard);
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot edit another member's cupboard!");
+        }
+
+        $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false,]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -105,7 +126,12 @@ class CupboardController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cupboard->getId(), $request->request->get('_token'))) {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot delete another member's cupboard!");
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $cupboard->getId(), $request->request->get('_token'))) {
             $entityManager->remove($cupboard);
             $entityManager->flush();
 

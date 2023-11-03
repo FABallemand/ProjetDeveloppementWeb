@@ -22,7 +22,7 @@ class ShoeType extends AbstractType
             ->add('purchased', DateType::class, [
                 'widget' => 'single_text'
             ]);
-        
+
         // Cannot use this feature beacause it generates a weird error when editing a shoe
         // Even the teacher is not able to fix it
         // if($options['display_cupboard'] ) 

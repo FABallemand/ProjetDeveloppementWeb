@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Shelf Controller
@@ -23,12 +24,31 @@ class ShelfController extends AbstractController
     #[Route('/', name: 'app_shelf_index', methods: ['GET'])]
     public function index(ShelfRepository $shelfRepository): Response
     {
+        $shelves = array();
+        $member = null;
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $shelves = $shelfRepository->findAll();
+            $member = $this->getUser()->getMember();
+        } else {
+            $shelves = $shelfRepository->findBy(['published' => true]);
+            $user = $this->getUser();
+            if ($user) {
+                $member = $user->getMember();
+                if ($member) {
+                    $memberShelves = $shelfRepository->findBy(['member' => $member]);
+                    $shelves = array_merge($shelves, $memberShelves);
+                }
+            }
+        }
+
         return $this->render('shelf/index.html.twig', [
-            'shelves' => $shelfRepository->findBy(['published' => true]),
+            'shelves' => $shelves,
+            'member' => $member,
         ]);
     }
 
     #[Route('/new', name: 'app_shelf_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $shelf = new Shelf();
@@ -78,6 +98,22 @@ class ShelfController extends AbstractController
     #[Route('/{id}', name: 'app_shelf_show', methods: ['GET'])]
     public function show(Shelf $shelf): Response
     {
+        $hasAccess = false;
+        if ($this->isGranted('ROLE_ADMIN') || $shelf->isPublished()) {
+            $hasAccess = true;
+        } else {
+            $user = $this->getUser();
+            if ($user) {
+                $member = $user->getMember();
+                if ($member &&  ($member == $shelf->getMember())) {
+                    $hasAccess = true;
+                }
+            }
+        }
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access this shelf!");
+        }
+
         return $this->render('shelf/show.html.twig', [
             'shelf' => $shelf,
         ]);
@@ -89,13 +125,23 @@ class ShelfController extends AbstractController
     public function shoeShow(Shelf $shelf, Shoe $shoe): Response
     {
         if (!$shelf->getShoes()->contains($shoe)) {
-            dump($shelf);
-            dump($shoe);
             throw $this->createNotFoundException("Couldn't find such a shoe in this shelf!");
         }
 
-        if (!$shelf->isPublished()) {
-            throw $this->createAccessDeniedException("You cannot access the requested ressource!");
+        $hasAccess = false;
+        if ($this->isGranted('ROLE_ADMIN') || $shelf->isPublished()) {
+            $hasAccess = true;
+        } else {
+            $user = $this->getUser();
+            if ($user) {
+                $member = $user->getMember();
+                if ($member &&  ($member == $shelf->getMember())) {
+                    $hasAccess = true;
+                }
+            }
+        }
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot access this shoe in this shelf!");
         }
 
         return $this->render('shelf/shoe_show.html.twig', [
@@ -105,8 +151,14 @@ class ShelfController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_shelf_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function edit(Request $request, Shelf $shelf, EntityManagerInterface $entityManager): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shelf->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot edit another member's shelf!");
+        }
+
         $form = $this->createForm(ShelfType::class, $shelf);
         $form->handleRequest($request);
 
@@ -126,8 +178,14 @@ class ShelfController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_shelf_delete', methods: ['POST'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function delete(Request $request, Shelf $shelf, EntityManagerInterface $entityManager): Response
     {
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shelf->getMember());
+        if (!$hasAccess) {
+            throw $this->createAccessDeniedException("You cannot delete another member's shelf!");
+        }
+
         if ($this->isCsrfTokenValid('delete' . $shelf->getId(), $request->request->get('_token'))) {
             $entityManager->remove($shelf);
             $entityManager->flush();

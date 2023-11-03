@@ -32,18 +32,16 @@ class ShelfType extends AbstractType
             ->add('description')
             ->add('published')
             ->add('member', null, ['disabled' => true,])
-            // ->add('shoes', null, [
-            //     'query_builder' => function (ShoeRepository $er) use ($member) {
-            //         return $er->createQueryBuilder('o')
-            //             ->leftJoin('o.cupboard', 'i')
-            //             ->andWhere('i.member = :member')
-            //             ->setParameter('member', $member);
-            //     }
-            // ]);
             ->add(
                 'shoes',
                 null,
                 [
+                    'query_builder' => function (ShoeRepository $er) use ($member) {
+                        return $er->createQueryBuilder('o')
+                            ->leftJoin('o.cupboard', 'i')
+                            ->andWhere('i.member = :member')
+                            ->setParameter('member', $member);
+                    },
                     // avec 'by_reference' => false, sauvegarde les modifications
                     'by_reference' => false,
                     // classe pas obligatoire

@@ -133,11 +133,11 @@ See *CHECKLIST.md* for more details.
 - [x] Add authentification
 
 ### Step 20: Acces Control
-- [ ] Read only access for members
-- [ ] Consulatation only access for owner and administrator
-- [ ] Write access to data owner
-- [ ] Access to non-public galeries (**Shelf**)
-- [ ] Access to objects (**Shoe**) inside non-public galeries (**Shelf**)
+- [x] Read only access for members
+- [x] Consulatation only access for owner and administrator
+- [x] Write access to data owner
+- [x] Access to non-public galeries (**Shelf**)
+- [x] Access to objects (**Shoe**) inside non-public galeries (**Shelf**)
 
 ### Step 21: Data Loading Contextualisation
 - [ ] Galeries (**Shelf**) display

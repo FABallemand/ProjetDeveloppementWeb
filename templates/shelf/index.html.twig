@@ -58,11 +58,19 @@
 		</div>
 	</section>
 
-	<div class="p-4 pt-0 border-top-0 bg-transparent">
-		<div class="text-center">
-			<a class="btn btn-success mt-auto" href="{{ path('app_shelf_new') }}">Create new</a>
+	{% if member %}
+		<div class="p-4 pt-0 border-top-0 bg-transparent">
+			<div class="text-center">
+				<a class="btn btn-success mt-auto" href="{{ path('app_shelf_newinmember', {'id': member.id}) }}">Create new</a>
+			</div>
 		</div>
-	</div>
+	{% else %}
+		<div class="p-4 pt-0 border-top-0 bg-transparent">
+			<div class="text-center">
+				<a class="btn btn-success mt-auto" href="{{ path('app_login') }}">Login to create your shelf!</a>
+			</div>
+		</div>
+	{% endif %}
 
 	<table class="table">
 		<thead>

@@ -335,7 +335,7 @@
 <td class="org-left">consultation de la liste des seuls inventaires d'un membre dans le front-office</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -344,7 +344,7 @@
 <td class="org-left">contextualisation de la création d'[inventaire] en fonction du Membre</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -362,7 +362,7 @@
 <td class="org-left">contextualisation de la création d'une [galerie] en fonction du membre</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -380,7 +380,7 @@
 <td class="org-left">contextualisation de l'ajout d'un [objet] à une [galerie]</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -389,7 +389,7 @@
 <td class="org-left">ajout des <i>Utilisateurs</i> au modèle de données et du lien utilisateur - membre</td>
 <td class="org-left" style="color: red;">OBLIGATOIRE</td>
 <td class="org-left">TP 9</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -407,7 +407,7 @@
 <td class="org-left">protection de l'accès aux routes interdites réservées aux membres</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">TP 9</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -416,7 +416,7 @@
 <td class="org-left">protection de l'accès aux données à leurs seuls propriétaires</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">TP 9</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>
@@ -425,7 +425,7 @@
 <td class="org-left">contextualisation du chargement des données en fonction de l'utilisateur connecté</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">&nbsp;</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 <tbody>

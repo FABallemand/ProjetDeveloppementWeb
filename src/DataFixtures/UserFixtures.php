@@ -44,7 +44,8 @@ class UserFixtures extends Fixture
      */
     private function getUserData()
     {
-        yield ['fabien@localhost','ROLE_ADMIN', 'fabien'];
+        yield ['admin@localhost','ROLE_ADMIN', 'admin'];
+        yield ['fabien@localhost','ROLE_USER', 'fabien'];
         yield ['user_1@localhost','ROLE_USER', 'user_1'];
         yield ['user_2@localhost','ROLE_USER', 'user_2'];
         
