@@ -99,6 +99,7 @@ class ShelfController extends AbstractController
     public function show(Shelf $shelf): Response
     {
         $hasAccess = false;
+        $member = null;
         if ($this->isGranted('ROLE_ADMIN') || $shelf->isPublished()) {
             $hasAccess = true;
         } else {
@@ -114,8 +115,16 @@ class ShelfController extends AbstractController
             throw $this->createAccessDeniedException("You cannot access this shelf!");
         }
 
+        if (!$member) {
+            $user = $this->getUser();
+            if ($user) {
+                $member = $user->getMember();
+            }
+        }
+
         return $this->render('shelf/show.html.twig', [
             'shelf' => $shelf,
+            'member' => $member,
         ]);
     }
 
