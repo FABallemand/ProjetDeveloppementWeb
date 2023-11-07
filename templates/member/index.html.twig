@@ -5,46 +5,89 @@
 {% block main %}
     <h1>Member index</h1>
 
+    {% if member %}
+        <h2>Your Profile</h2>
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Member image-->
+                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                            <!-- Member details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Member name-->
+                                    <h5 class="fw-bolder">{{ member.name }}</h5>
+                                    <!-- Member reviews-->
+                                    {% for shelf in member.shelves %}
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="text-center"><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf.name }}</a></div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!-- Member actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_member_show', {'id': member.id}) }}">Show profile</a></div>
+                            </div>
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{{ path('app_member_edit', {'id': member.id}) }}">Edit</a></div>
+                            </div>
+                         </div>          
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <h2>Member Profiles</h2>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 
-                {% for member in members %}
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h5 class="fw-bolder">{{ member.name }}</h5>
-                                <!-- Product reviews-->
-                                {% for shelf in member.shelves %}
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="text-center"><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf.name }}</a></div>
+                {% for m in members %}
+                    {% if (not member) or (m.id != member.id) %}
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <!-- Member image-->
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                                <!-- Member details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Member name-->
+                                        <h5 class="fw-bolder">{{ m.name }}</h5>
+                                        <!-- Member reviews-->
+                                        {% for shelf in m.shelves %}
+                                        <div class="d-flex justify-content-center small text-warning mb-2">
+                                            <div class="text-center"><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf.name }}</a></div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                                {% endfor %}
+                                <!-- Member actions-->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_member_show', {'id': m.id}) }}">Show profile</a></div>
+                                </div>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{{ path('app_member_edit', {'id': m.id}) }}">Edit</a></div>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ path('app_member_show', {'id': member.id}) }}">Show profile</a></div>
-                        </div>
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-warning mt-auto" href="{{ path('app_member_edit', {'id': member.id}) }}">Edit</a></div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %} {# shoes #}            
+                    {% endif %}
+                {% endfor %} {# m #}            
                 
             </div>
         </div>
     </section>
 
-    <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-success mt-auto" href="{{ path('app_member_new') }}">Create new</a></div>
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-success mt-auto" href="{{ path('app_member_new') }}">Create new</a></div>
+        </div>
+    {% endif %}
 
     <table class="table">
         <thead>
