@@ -98,11 +98,13 @@
 											</div>
 										</div>
 										<!-- Shelf actions-->
-										<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-											<div class="text-center">
-												<a class="btn btn-outline-dark mt-auto" href="{{ path('app_shelf_show', {'id': shelf.id}) }}">Show details</a>
+										{% if shelf.isPublished %}
+											<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+												<div class="text-center">
+													<a class="btn btn-outline-dark mt-auto" href="{{ path('app_shelf_show', {'id': shelf.id}) }}">Show details</a>
+												</div>
 											</div>
-										</div>
+										{% endif %}
 									</div>
 								</div>
 							{% endif %}
@@ -150,11 +152,13 @@
 								</div>
 							</div>
 							<!-- Shelf actions-->
-							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-								<div class="text-center">
-									<a class="btn btn-outline-dark mt-auto" href="{{ path('app_shelf_show', {'id': shelf.id}) }}">Show details</a>
+							{% if shelf.isPublished %}
+								<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+									<div class="text-center">
+										<a class="btn btn-outline-dark mt-auto" href="{{ path('app_shelf_show', {'id': shelf.id}) }}">Show details</a>
+									</div>
 								</div>
-							</div>
+							{% endif %}
 						</div>
 					</div>
 				{% endfor %}
