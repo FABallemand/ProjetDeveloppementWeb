@@ -24,7 +24,7 @@ class ShoeController extends AbstractController
 
     #[Route('/', name: 'app_shoe_index', methods: ['GET'])]
     public function index(ShoeRepository $shoeRepository): Response
-    {   
+    {
         $shoes = array();
         if ($this->isGranted('ROLE_ADMIN')) {
             $shoes = $shoeRepository->findAll();
@@ -123,6 +123,42 @@ class ShoeController extends AbstractController
         return $this->render('shoe/show.html.twig', [
             'shoe' => $shoe,
         ]);
+    }
+
+    /**
+     * Mark shoes in the user's session -> TODO
+     */
+    #[Route('/mark/{id}', name: 'app_shoe_mark', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function markAction(Request $request, Shoe $shoe): Response
+    {
+        // Retrieve marked shoes array from session
+        $markedShoes = $request->getSession()->get('marked_shoes');
+        dump($markedShoes);
+        if (!is_array($markedShoes)) {
+            $markedShoes = array();
+        }
+
+        // dump($shoe);
+        // dump($markedShoes);
+
+        $id = $shoe->getId();
+        // if the shoe id is not in the array of marked shoes, add it to the array
+        if (!in_array($id, $markedShoes)) {
+            $markedShoes[] = $id;
+        } else
+        // else, remove it from the array
+        {
+            // substract two arrays
+            $markedShoes = array_diff($markedShoes, array($id));
+        }
+
+        // Update marked shoes array in session
+        $request->getSession()->set('marked_shoes', $markedShoes);
+
+        return $this->redirectToRoute(
+            'app_shoe_show',
+            ['id' => $shoe->getId()]
+        );
     }
 
     #[Route('/{id}/edit', name: 'app_shoe_edit', methods: ['GET', 'POST'])]

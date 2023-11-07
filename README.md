@@ -232,6 +232,7 @@ make prepar_to_send
 - TODO: "Supprimez l’accès à la consultation des inventaires", contextualise shoe and cupboard creation, STEP 17
 - TODO: Contextualise adding an object (**Shoe**) to a galery (**Shelf**), STEP 18
 - TODO: fix login page style
+- TODO: add shoe marking
 
 ## 👤 Author
 - Fabien ALLEMAND

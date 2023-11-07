@@ -150,6 +150,43 @@ class ShelfController extends AbstractController
         ]);
     }
 
+    /**
+     * Mark shelf in the user's session
+     */
+    #[Route('/mark/{id}', name: 'app_shelf_mark', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function markAction(Request $request, Shelf $shelf): Response
+    {
+        // Retrieve marked shoes array from session
+        $markedShelves = $request->getSession()->get('marked_shelves');
+        dump($markedShelves);
+        if (!is_array($markedShelves)) {
+            $markedShelves = array();
+        }
+
+        // dump($shelf);
+        // dump($markedShelves);
+
+        $id = $shelf->getId();
+        // if the shoe id is not in the array of marked shoes, add it to the array
+        if (!in_array($id, $markedShelves)) {
+            $markedShelves[] = $id;
+        } else
+        // else, remove it from the array
+        {
+            // substract two arrays
+            $markedShelves = array_diff($markedShelves, array($id));
+        }
+
+        // Update marked shoes array in session
+        $request->getSession()->set('marked_shelves', $markedShelves);
+
+        return $this->redirectToRoute(
+            'app_shelf_show',
+            ['id' => $shelf->getId()]
+        );
+    }
+
     #[Route('/{id}/edit', name: 'app_shelf_edit', methods: ['GET', 'POST'])]
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function edit(Request $request, Shelf $shelf, EntityManagerInterface $entityManager): Response

@@ -461,7 +461,7 @@
 <td class="org-left">ajout d'une gestion de marque-pages/panier dans le front-office</td>
 <td class="org-left">OPTIONNEL</td>
 <td class="org-left">TP 8</td>
-<td class="org-left">&nbsp;</td>
+<td class="org-left">✅</td>
 </tr>
 </tbody>
 </table>
