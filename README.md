@@ -3,7 +3,9 @@
 ## 👟 Description
 As a trail runner I really want to know the best shoes to buy. In order to perform an educated purchase I need to know what each model feels on the long run: How light are the shoes? Are they comfortable? Do they have a good grip? On rock? On dirt? What about rainning conditions? Will my ankle feel supported? Which size should I get?
 
-Trail Running Shoes (TRS) is a community based website rencensing relevant data about trail running shoes. Athletes can share feedbacks, feelings or technical details about the shoes they own (and store in a cupboard) and browse the thoughts of other trail runners about other running sneackers. All athletes can easily display their favorite (or worst) shoes on a special shelf.
+Trail Running Shoes (TRS) is a community based website rencensing relevant data about trail running shoes. Athletes can share feedbacks, feelings or technical details about the shoes they own (and store in a cupboard) and browse the thoughts of other trail runners about other running sneackers. All athletes can easily display their favorite (or worst) shoes on shelves.
+
+Register NOW to benefit from all the features of TRS!! 🔥
 
 ## ⚙️ Technical Description
 Created using:
@@ -14,6 +16,7 @@ Created using:
 Association table between the type of entities in the data sheet, their real-life counterpart and the name used in the code:
 | Entity Type |    Entity    |   Class Name   |
 |-------------|--------------|----------------|
+| User        | Trail Runner |    **User**    |
 | Member      | Trail Runner |   **Member**   |
 | Object      |  Trail Shoes |    **Shoe**    |
 | Inventory   |   Cupboard   |  **Cupboard**  |
@@ -26,7 +29,14 @@ Member *-- Cupboard : 0..*
 Member *-- Shelf : 0..*
 Cupboard *-- Shoe : 0..*
 Shelf o-- Shoe : 0..*
+User o-- Member : 1
+User : int id
+User : string email
+User : string password
+User : array roles
+User : Member member
 Member : int id
+Member : User user
 Member : string name
 Member : int age
 Member : Collection cupboards
@@ -41,6 +51,10 @@ Shoe : string model
 Shoe : DateTimeInterface purchased
 Shoe : Cupboard cupboard
 Shoe : Collection shelves
+Shoe : File imageFile
+Shoe : string imageName
+Shoe : int imageSize
+Shoe : DateTimeImmutable updatedAt
 Shelf : int id
 Shelf : string name
 Shelf : string description
