@@ -3,6 +3,66 @@
 {% block title %}Shelf index
 {% endblock %}
 
+{% block custompage_script %}
+	<script>
+		// Load shelf list in AJAX with JQuery
+		$(document).ready(function(){
+			// Click manager on shelves_btn
+			$("#shelves_btn").click(function(){
+					// Retrieve JSON list of shelves with AJAX
+					$.get("/api/shelves", function(getresult){
+							// Add list in the template
+							$(".div_shelves").append('<ul>');
+							// Handle loaded shelves
+							$(getresult['hydra:member']).each( function(index, item) {
+									console.log(index, item);
+									// Add element in the list
+									$(".div_shelves ul").append(
+											$(document.createElement('li')).text(
+												item.id + ' ' + ( item.name ? item.name : ""))
+									);
+							});
+					},
+					"json");
+			});
+
+			// TO BE FIXED
+			// Click manager on table_shelves_btn
+			$("#table_shelves_btn").click(function(){
+					// Retrieve JSON list of shelves with AJAX
+					$.get("/api/shelves", function(getresult){
+							// Add list in the template
+							
+							// Handle loaded shelves
+							$(getresult['hydra:member']).each( function(index, item) {
+									console.log(index, item);
+									// Add element in the table
+									$(".tbody_shelves").append('<tr>');
+									$(".tbody_shelves tr").append(
+											$(document.createElement('td')).text(
+												item.id)
+									);
+									$(".tbody_shelves tr").append(
+											$(document.createElement('td')).text(
+												item.name)
+									);
+									$(".tbody_shelves tr").append(
+											$(document.createElement('td')).text(
+												item.description)
+									);
+									$(".tbody_shelves tr").append(
+											$(document.createElement('td')).text(
+												item.published ? "Yes" : "No")
+									);
+							});
+					},
+					"json");
+			});
+		});
+	</script>
+{% endblock %}
+{# custompage_script #}
+
 {% block main %}
 	<h1>Shelf index</h1>
 
@@ -56,6 +116,12 @@
 					{% endfor %}
 					{# shelf #}
 
+				</div>
+			</div>
+
+			<div class="p-4 pt-0 border-top-0 bg-transparent">
+				<div class="text-center">
+					<a class="btn btn-success mt-auto" href="{{ path('app_shelf_newinmember', {'id': member.id}) }}">Create new</a>
 				</div>
 			</div>
 		</section>
@@ -168,19 +234,39 @@
 		</div>
 	</section>
 
-	{% if member %}
-		<div class="p-4 pt-0 border-top-0 bg-transparent">
-			<div class="text-center">
-				<a class="btn btn-success mt-auto" href="{{ path('app_shelf_newinmember', {'id': member.id}) }}">Create new</a>
-			</div>
-		</div>
-	{% else %}
+	{% if not member %}
 		<div class="p-4 pt-0 border-top-0 bg-transparent">
 			<div class="text-center">
 				<a class="btn btn-success mt-auto" href="{{ path('app_login') }}">Login to create your shelf!</a>
 			</div>
 		</div>
 	{% endif %}
+
+	<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+		<div class="text-center">
+			<button id="shelves_btn">Dynamically load shelves</button>
+		</div>
+	</div>
+	<div class="div_shelves"></div>
+
+	{# <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+		<div class="text-center">
+			<button id="table_shelves_btn">Dynamically load shelves</button>
+		</div>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Published</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody class="tbody_shelves">
+		</tbody>
+	</table> #}
 
 	{% set shelves = private_shelves|merge(public_shelves) %}
 	<table class="table">

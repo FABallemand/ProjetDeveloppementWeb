@@ -126,7 +126,7 @@ class ShoeController extends AbstractController
     }
 
     /**
-     * Mark shoes in the user's session -> TODO
+     * Mark shoes in the user's session -> NOT USED IN THE WEB APP (see shelf marking instead)
      */
     #[Route('/mark/{id}', name: 'app_shoe_mark', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function markAction(Request $request, Shoe $shoe): Response

@@ -1,58 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shelf{% endblock %}
+{% block title %}Shelf
+{% endblock %}
 
 {% block main %}
-    <h1>{{ shelf.name }}</h1>
+	<h1>{{ shelf.name }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ shelf.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ shelf.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ shelf.description }}</td>
-            </tr>
-            <tr>
-                <th>Owner</th>
-                <td><a href="{{ path('app_member_show', {'id': shelf.member.id}) }}">{{ shelf.member }}</a></td>
-            </tr>
-            <tr>
-                <th>Created</th>
-                <td>{{ shelf.created ? shelf.created|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Updated</th>
-                <td>{{ shelf.updated ? shelf.updated|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Published</th>
-                <td>{{ shelf.published ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>Shoes</th>
-                <td>
-                    <ul>
-                        {% for shoe in shelf.shoes %}
-                            <li>
-                                <a href="{{ path('app_shelf_shoe_show', {'shelf_id': shelf.id, 'shoe_id': shoe.id}) }}">
-                                    {{ shoe }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ shelf.id }}</td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<td>{{ shelf.name }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ shelf.description }}</td>
+			</tr>
+			<tr>
+				<th>Owner</th>
+				<td>
+					<a href="{{ path('app_member_show', {'id': shelf.member.id}) }}">{{ shelf.member }}</a>
+				</td>
+			</tr>
+			<tr>
+				<th>Created</th>
+				<td>{{ shelf.created ? shelf.created|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Updated</th>
+				<td>{{ shelf.updated ? shelf.updated|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Published</th>
+				<td>{{ shelf.published ? 'Yes' : 'No' }}</td>
+			</tr>
+			<tr>
+				<th>Shoes</th>
+				<td>
+					<ul>
+						{% for shoe in shelf.shoes %}
+							<li>
+								<a href="{{ path('app_shelf_shoe_show', {'shelf_id': shelf.id, 'shoe_id': shoe.id}) }}">
+									{{ shoe }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <section class="py-5">
+	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
 			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
@@ -88,22 +91,17 @@
 							<!-- Product actions-->
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
-									<a class="btn btn-outline-dark mt-auto" href="{{ path('app_shoe_show', {'id': shoe.id}) }}">Show details</a>
+									<a class="btn btn-outline-dark mt-auto" href="{{ path('app_shelf_shoe_show', {'shelf_id': shelf.id, 'shoe_id': shoe.id}) }}">Show details</a>
 								</div>
 							</div>
 							{% if is_granted('ROLE_USER') %}
-                                {% if member %}
-                                    {% set cupboards = member.cupboards %}
-                                    {% for cupboard in cupboards %}
-                                        {% if shoe.id in cupboard %}
-                                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                <div class="text-center">
-                                                    <a class="btn btn-outline-warning mt-auto" href="{{ path('app_shoe_edit', {'id': shoe.id}) }}">Edit</a>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
+								{% if member == shelf.member %}
+									<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+										<div class="text-center">
+											<a class="btn btn-outline-warning mt-auto" href="{{ path('app_shoe_edit', {'id': shoe.id}) }}">Edit</a>
+										</div>
+									</div>
+								{% endif %}
 							{% endif %}
 						</div>
 					</div>
@@ -114,22 +112,29 @@
 		</div>
 	</section>
 
-    {# {{ dump(shelf) }}
-    {% for shoe in shelf.shoes %}
-        {{ dump(shoe) }}
-    {% endfor %} #}
+	{% if is_granted('ROLE_USER') %}
+		<div class="p-4 pt-0 border-top-0 bg-transparent">
+			<div class="text-center">
+				<a class="btn btn-warning mt-auto" href="{{ path('app_shelf_mark', {'id': shelf.id}) }}">Mark</a>
+			</div>
+		</div>
 
-    <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-info mt-auto" href="{{ path('app_shelf_index') }}">Back to list</a></div>
-    </div>
+		{% if member == shelf.member %}
 
-    <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-warning mt-auto" href="{{ path('app_shelf_mark', {'id': shelf.id}) }}">Mark</a></div>
-    </div>
+			<div class="p-4 pt-0 border-top-0 bg-transparent">
+				<div class="text-center">
+					<a class="btn btn-warning mt-auto" href="{{ path('app_shelf_edit', {'id': shelf.id}) }}">Edit</a>
+				</div>
+			</div>
 
-    <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-warning mt-auto" href="{{ path('app_shelf_edit', {'id': shelf.id}) }}">Edit</a></div>
-    </div>
+			{{ include('shelf/_delete_form.html.twig') }}
+		{% endif %}
+	{% endif %}
 
-    {{ include('shelf/_delete_form.html.twig') }}
+	<div class="p-4 pt-0 border-top-0 bg-transparent">
+		<div class="text-center">
+			<a class="btn btn-info mt-auto" href="{{ path('app_shelf_index') }}">Back to shelves list</a>
+		</div>
+	</div>
+
 {% endblock %}

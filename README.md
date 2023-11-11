@@ -8,12 +8,12 @@ Trail Running Shoes (TRS) is a community based website rencensing relevant data 
 Register NOW to benefit from all the features of TRS!! 🔥
 
 ## ⚙️ Technical Description
-Created using:
+### Created using:
 - php v8.1.2
 - Symfony v6.3.4
 - Tested with Mozilla Firefox v117.0 on Ubuntu 22.04 LTS
 
-Association table between the type of entities in the data sheet, their real-life counterpart and the name used in the code:
+### Association table between the type of entities in the data sheet, their real-life counterpart and the name used in the code:
 | Entity Type |    Entity    |   Class Name   |
 |-------------|--------------|----------------|
 | User        | Trail Runner |    **User**    |
@@ -22,7 +22,7 @@ Association table between the type of entities in the data sheet, their real-lif
 | Inventory   |   Cupboard   |  **Cupboard**  |
 | Galerie     |     Shelf    |   **Shelf**    |
 
-Class diagram:
+### Class diagram:
 ```mermaid
 classDiagram
 Member *-- Cupboard : 0..*
@@ -63,6 +63,17 @@ Shelf : Member member
 Shelf : Collection shoes
 Shelf : DateTimeInterface created
 Shelf : DateTimeInterface updated
+```
+
+### Implementation details:
+- The interface for galeries (**Shelf**), inventories (**Cupboard**) and objects (**Shoe**) are designed to display only buttons and links to actions that the user can perform
+- The interface for memberes (**Member**) is designed to display buttons and links to all actions but the user might be prompted to login or simply encounter an error message
+- The first command should be replaced by the second, which is a relatively new feature of php. However, the first command has been retained throughout the project in order to maximise compatibility.
+```php
+// 1
+$this->getUser()->getMember()
+//2
+$this?->getUser()?->getMember()
 ```
 
 ## 📝 Step-by-step Description
@@ -241,12 +252,8 @@ make prepar_to_send
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
-- TODO: error edit shoe (cannot add shelf?)
 - TODO: issue edit shelf from easyadmin (query builder)
-- TODO: "Supprimez l’accès à la consultation des inventaires", contextualise shoe and cupboard creation, STEP 17
-- TODO: Contextualise adding an object (**Shoe**) to a galery (**Shelf**), STEP 18
-- TODO: fix login page style
-- TODO: add shoe marking?
+- TODO: fix login page style -> apply CSS manualy because it is not an automated form in the template...
 - TODO: private shelves are visible from member
 
 ## 👤 Author

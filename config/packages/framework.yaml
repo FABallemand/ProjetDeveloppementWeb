@@ -20,7 +20,9 @@ framework:
 
     # Assets
     assets:
-        base_path: '/startbootstrap-shop-homepage-gh-pages'
+        packages:
+            bootstrap:
+                base_path: '/startbootstrap-shop-homepage-gh-pages'
 
 when@test:
     framework:

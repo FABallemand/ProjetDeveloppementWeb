@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Cupboard;
+use App\Entity\Shoe;
 use App\Entity\Member;
 use App\Form\CupboardType;
 use App\Repository\CupboardRepository;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Cupboard Controller
@@ -42,7 +44,7 @@ class CupboardController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $cupboard = new Cupboard();
-        $form = $this->createForm(CupboardType::class, $cupboard);
+        $form = $this->createForm(CupboardType::class, $cupboard, ['display_shoes' => true,]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -65,7 +67,7 @@ class CupboardController extends AbstractController
     {
         $cupboard = new Cupboard();
         $cupboard->setMember($member);
-        $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false,]);
+        $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false, 'display_shoes' => true,]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -96,19 +98,66 @@ class CupboardController extends AbstractController
         ]);
     }
 
+    // #[Route('/{id}/edit', name: 'app_cupboard_edit', methods: ['GET', 'POST'])]
+    // #[IsGranted('ROLE_USER')]
+    // public function edit(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
+    // {
+    //     $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+    //     if (!$hasAccess) {
+    //         throw $this->createAccessDeniedException("You cannot edit another member's cupboard!");
+    //     }
+
+    //     $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false, 'display_shoes' => true,]);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $entityManager->flush();
+
+    //         $this->addFlash('message', 'Cupboard successfully repaired!');
+
+    //         return $this->redirectToRoute('app_cupboard_index', [], Response::HTTP_SEE_OTHER);
+    //     }
+
+    //     return $this->render('cupboard/edit.html.twig', [
+    //         'cupboard' => $cupboard,
+    //         'form' => $form,
+    //     ]);
+    // }
+
     #[Route('/{id}/edit', name: 'app_cupboard_edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function edit(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+
         $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot edit another member's cupboard!");
         }
 
-        $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false,]);
+        // Save shoes before editing
+        $originalShoes = new ArrayCollection();
+        foreach ($cupboard->getShoes() as $shoe) {
+            $originalShoes->add($shoe);
+        }
+
+        $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false, 'display_shoes' => true,]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Update shoes in cupboard
+            foreach ($originalShoes as $shoe) {
+                if (false === $cupboard->getShoes()->contains($shoe)) {
+                    // This shoe has been removed, so it must be removed manualy
+                    $cupboard->getShoes()->removeElement($shoe);
+                    $entityManager->persist($shoe);
+                    $entityManager->remove($shoe);
+                }
+            }
             $entityManager->flush();
 
             $this->addFlash('message', 'Cupboard successfully repaired!');
@@ -123,7 +172,7 @@ class CupboardController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_cupboard_delete', methods: ['POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function delete(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
     {
         $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());

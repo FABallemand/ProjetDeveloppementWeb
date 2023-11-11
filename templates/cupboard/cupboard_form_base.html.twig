@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block custompage_script %}
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script>
+		var $collectionHolder;
+
+        jQuery(document).ready(function () { // Get the ul that holds the collection of shoes
+            $collectionHolder = $('ul.shoes');
+
+        //add a delete link to all of the existing task form li elements
+        $collectionHolder.find('li').each(function() {
+            addTodoFormDeleteLink($(this));
+        });
+
+        // count the current items in the ul/li we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find('li').length);
+
+        $('button.add_item_link').on('click', function (e) {
+            // add a new shoe form
+            addShoeForm($collectionHolder);
+            });
+        });
+
+        function addTodoFormDeleteLink($todoFormLi) {
+            var $removeFormButton = $('<div class="p-4 pt-0 border-top-0 bg-transparent"><div class="text-center"><button type="button" class="add_item_link btn btn-danger" data-collection-holder-class="shoes">Delete this shoe</button></div></div>');
+            $todoFormLi.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the todo form
+                $todoFormLi.remove();
+            });
+        }
+
+        function addShoeForm($collectionHolder) { // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your shoes field in ProjectType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a task" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+
+            addTodoFormDeleteLink($newFormLi);
+
+            $collectionHolder.append($newFormLi);
+        }
+	</script>
+{% endblock %}
+{# custompage_script #}

@@ -3,13 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Shoe;
-use App\Entity\Cupboard;
+use App\Repository\ShelfRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ShoeType extends AbstractType
@@ -25,7 +24,7 @@ class ShoeType extends AbstractType
 
         // Cannot use this feature beacause it generates a weird error when editing a shoe
         // Even the teacher is not able to fix it
-        // if($options['display_cupboard'] ) 
+        // if($options['display_cupboard']) 
         // {
         //     $builder->add('cupboard', EntityType::class, [
         //         'class' => Cupboard::class
@@ -33,8 +32,33 @@ class ShoeType extends AbstractType
         //     ]);
         // }
 
+        if ($options['display_shelves']) {
+            $shoe = $options['data'] ?? null;
+            $member = $shoe->getCupboard()->getMember();
+
+            $builder
+                ->add(
+                    'shelves',
+                    null,
+                    [
+                        'query_builder' => function (ShelfRepository $er) use ($member) {
+                            return $er->createQueryBuilder('o')
+                                ->andWhere('o.member = :member')
+                                ->setParameter('member', $member);
+                        },
+                        // avec 'by_reference' => false, sauvegarde les modifications
+                        'by_reference' => false,
+                        // classe pas obligatoire
+                        //'class' => [Object]::class,
+                        // permet sélection multiple
+                        'multiple' => true,
+                        // affiche sous forme de checkboxes
+                        'expanded' => true
+                    ]
+                );
+        }
+
         $builder
-            ->add('shelves')
             ->add('imageName', TextType::class, ['disabled' => true])
             ->add('imageFile', VichImageType::class, ['required' => false]);
     }
@@ -43,8 +67,10 @@ class ShoeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Shoe::class,
-            'display_cupboard' => false // Disable the feature (see above)
+            'display_cupboard' => false, // Disable the feature (see above)
+            'display_shelves' => true
         ]);
         $resolver->setAllowedTypes('display_cupboard', 'bool');
+        $resolver->setAllowedTypes('display_shelves', 'bool');
     }
 }

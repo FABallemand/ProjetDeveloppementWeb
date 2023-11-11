@@ -1,57 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shoe{% endblock %}
+{% block title %}Shoe
+{% endblock %}
 
 {% block main %}
-    <h1>Shoe</h1>
+	<h1>Shoe</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ shoe.id }}</td>
-            </tr>
-            <tr>
-                <th>Brand</th>
-                <td>{{ shoe.brand }}</td>
-            </tr>
-            <tr>
-                <th>Model</th>
-                <td>{{ shoe.model }}</td>
-            </tr>
-            <tr>
-                <th>Purchased</th>
-                <td>{{ shoe.purchased ? shoe.purchased|date('Y-m-d') : 'NC' }}</td>
-            </tr>
-            <tr>
-                <th>Cupboard</th>
-                <td><a href="{{ path('app_cupboard_show', {'id': shoe.cupboard.id}) }}">{{ shoe.cupboard }}</a></td>
-            </tr>
-            <tr>
-                <th>Shelves</th>
-                <td>
-                    <ul>
-                        {% for shelf in shoe.shelves %}
-                        {% dump shelf %}
-                            <li><a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td><img src="{{ vich_uploader_asset(shoe, 'imageFile') }}"/></td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ shoe.id }}</td>
+			</tr>
+			<tr>
+				<th>Brand</th>
+				<td>{{ shoe.brand }}</td>
+			</tr>
+			<tr>
+				<th>Model</th>
+				<td>{{ shoe.model }}</td>
+			</tr>
+			<tr>
+				<th>Purchased</th>
+				<td>{{ shoe.purchased ? shoe.purchased|date('Y-m-d') : 'NC' }}</td>
+			</tr>
+			<tr>
+				<th>Cupboard</th>
+				<td>
+					<a href="{{ path('app_cupboard_show', {'id': shoe.cupboard.id}) }}">{{ shoe.cupboard }}</a>
+				</td>
+			</tr>
+			<tr>
+				<th>Shelves</th>
+				<td>
+					<ul>
+						{% for shelf in shoe.shelves %}
+							{% dump shelf %}
+							<li>
+								<a href="{{ path('app_shelf_show', {'id': shelf.id}) }}">{{ shelf }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td><img src="{{ vich_uploader_asset(shoe, 'imageFile') }}"/></td>
+			</tr>
+		</tbody>
+	</table>
 
-    <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-light mt-auto" href="{{ path('app_shelf_show', { 'id': shelf.id}) }}">Back to shelf ({{ shelf.name }})</a></div>
-    </div>
+	<div class="p-4 pt-0 border-top-0 bg-transparent">
+		<div class="text-center">
+			<a class="btn btn-warning mt-auto" href="{{ path('app_shoe_edit', {'id': shoe.id}) }}">Edit</a>
+		</div>
+	</div>
 
-    <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-warning mt-auto" href="{{ path('app_shoe_edit', {'id': shoe.id}) }}">Edit</a></div>
-    </div>
+	{{ include('shoe/_delete_form.html.twig') }}
 
-    {{ include('shoe/_delete_form.html.twig') }}
+	<div class="p-4 pt-0 border-top-0 bg-transparent">
+		<div class="text-center">
+			<a class="btn btn-info mt-auto" href="{{ path('app_shelf_show', { 'id': shelf.id}) }}">Back to shelf ({{ shelf.name }})</a>
+		</div>
+	</div>
+
 {% endblock %}

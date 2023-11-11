@@ -28,7 +28,11 @@ class ShelfController extends AbstractController
         $privateShelves = array();
         $publicShelves = $shelfRepository->findBy(['published' => true]);
         if ($this->isGranted('ROLE_ADMIN')) {
-            $member = $this->getUser()->getMember();
+            $user = $this->getUser();
+            if ($user) {
+                $member = $user->getMember();
+            }
+            // $member = $this->getUser()?->getMember();
             $privateShelves = $shelfRepository->findAll();
         } else {
             $user = $this->getUser();
@@ -52,7 +56,7 @@ class ShelfController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $shelf = new Shelf();
-        $form = $this->createForm(ShelfType::class, $shelf, ['shelf_is_new' => true]);
+        $form = $this->createForm(ShelfType::class, $shelf, ['show_member' => true]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -77,7 +81,7 @@ class ShelfController extends AbstractController
     {
         $shelf = new Shelf();
         $shelf->setMember($member);
-        $form = $this->createForm(ShelfType::class, $shelf, ['display_member' => false,]);
+        $form = $this->createForm(ShelfType::class, $shelf, ['show_member' => false,]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -98,28 +102,22 @@ class ShelfController extends AbstractController
     #[Route('/{id}', name: 'app_shelf_show', methods: ['GET'])]
     public function show(Shelf $shelf): Response
     {
-        $hasAccess = false;
+        $user = $this->getUser();
         $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = false;
+
         if ($this->isGranted('ROLE_ADMIN') || $shelf->isPublished()) {
             $hasAccess = true;
         } else {
-            $user = $this->getUser();
-            if ($user) {
-                $member = $user->getMember();
-                if ($member &&  ($member == $shelf->getMember())) {
-                    $hasAccess = true;
-                }
+            if ($member &&  ($member == $shelf->getMember())) {
+                $hasAccess = true;
             }
         }
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access this shelf!");
-        }
-
-        if (!$member) {
-            $user = $this->getUser();
-            if ($user) {
-                $member = $user->getMember();
-            }
         }
 
         return $this->render('shelf/show.html.twig', [

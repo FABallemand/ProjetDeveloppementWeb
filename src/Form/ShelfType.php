@@ -31,7 +31,8 @@ class ShelfType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('published')
-            ->add('member', null, ['disabled' => true,])
+            // ->add('created', null, ['disabled' => true,])
+            // ->add('updated', null, ['disabled' => true,])
             ->add(
                 'shoes',
                 null,
@@ -52,14 +53,18 @@ class ShelfType extends AbstractType
                     'expanded' => true
                 ]
             );
+
+        if ($options['show_member']) {
+            $builder->add('member');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Shelf::class,
-            'shelf_is_new' => false
+            'show_member' => false
         ]);
-        $resolver->setAllowedTypes('shelf_is_new', 'bool');
+        $resolver->setAllowedTypes('show_member', 'bool');
     }
 }
