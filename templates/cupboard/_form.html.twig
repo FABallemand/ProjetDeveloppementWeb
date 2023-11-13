@@ -18,7 +18,7 @@
         </div>
         <div class="col">
 
-            {% dump form.shoes %}
+            {# {% dump form.shoes %} #}
 
             <h3>Shoes</h3>
             <ul class="shoes" data-prototype="{{ form_widget(form.shoes.vars.prototype)|e('html_attr') }}">
@@ -42,5 +42,4 @@
             <button class="btn btn-success">{{ button_label|default('Save') }}</button>
         </div>
     </div>
-
 {{ form_end(form) }}
