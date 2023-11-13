@@ -7,6 +7,8 @@ Trail Running Shoes (TRS) is a community based website rencensing relevant data 
 
 Register NOW to benefit from all the features of TRS!! 🔥
 
+![](screenshot_1.png)
+
 ## ⚙️ Technical Description
 ### Created using:
 - php v8.1.2
