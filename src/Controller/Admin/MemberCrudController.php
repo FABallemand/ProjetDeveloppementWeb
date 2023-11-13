@@ -25,6 +25,7 @@ class MemberCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
+            AssociationField::new('user')->hideOnForm(),
             TextField::new('name'),
             IntegerField::new('age'),
             AssociationField::new('cupboards'),

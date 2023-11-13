@@ -23,11 +23,12 @@ class ShoeCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('brand')->setTemplatePath('admin/fields/shoe_index_brand.html.twig'),
-            TextField::new('model')->setTemplatePath('admin/fields/shoe_index_model.html.twig'),
-            DateField::new('purchased')->hideOnIndex(),
+            TextField::new('brand')->setTemplatePath('admin/fields/shoe_brand.html.twig'),
+            TextField::new('model')->setTemplatePath('admin/fields/shoe_model.html.twig'),
+            DateField::new('purchased'),
             AssociationField::new('cupboard'),
-            AssociationField::new('shelves')->hideOnIndex()
+            AssociationField::new('shelves')->hideOnIndex(),
+            AssociationField::new('shelves')->onlyOnDetail()->setTemplatePath('admin/fields/shoe_shelves.html.twig'),
         ];
     }
 

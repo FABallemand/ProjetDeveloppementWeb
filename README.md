@@ -12,6 +12,8 @@ Register NOW to benefit from all the features of TRS!! 🔥
 - php v8.1.2
 - Symfony v6.3.4
 - Tested with Mozilla Firefox v117.0 on Ubuntu 22.04 LTS
+- API interface (*/api*)
+- EasyAdmin interface (*/admin*) when connected as administrator
 
 ### Association table between the type of entities in the data sheet, their real-life counterpart and the name used in the code:
 | Entity Type |    Entity    |   Class Name   |

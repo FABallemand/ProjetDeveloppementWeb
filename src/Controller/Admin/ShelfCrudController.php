@@ -41,36 +41,38 @@ class ShelfCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name'),
-            AssociationField::new('member'),
+            AssociationField::new('member')->hideWhenUpdating(),
             TextField::new('description')->hideOnIndex(),
             // BooleanField::new('published')->onlyOnForms()->hideWhenCreating(),
             // BooleanField::new('published')->hideOnIndex()->hideWhenCreating(),
             BooleanField::new('published')->hideWhenCreating()->renderAsSwitch(false),
-            AssociationField::new('shoes')
-                ->onlyOnForms()
-                // on ne souhaite pas gérer l'association entre les
-                // shoe et la shelf dès la crétion de la shelf
-                ->hideWhenCreating()
-                ->setTemplatePath('admin/fields/cupboard_shoes.html.twig')
-                // Ajout possible seulement pour des shoe qui
-                // appartiennent même propriétaire de l'cupboard
-                // que le member de la shelf
-                ->setQueryBuilder(
-                    function (QueryBuilder $queryBuilder) {
-                        // récupération de l'instance courante de shelf
-                        $currentShelf = $this->getContext()->getEntity()->getInstance();
-                        $member = $currentShelf->getMember();
-                        $memberId = $member->getId();
-                        // charge les seuls shoe dont le 'owner' du cupboard est le member de la galerie
-                        $queryBuilder->leftJoin('entity.cupboard', 'i')
-                            ->leftJoin('i.owner', 'm')
-                            ->andWhere('m.id = :member_id')
-                            ->setParameter('member_id', $memberId);
-                        return $queryBuilder;
-                    }
-                ),
-            DateTimeField::new('created')->hideOnIndex(),
-            DateTimeField::new('updated')->hideOnIndex()
+            AssociationField::new('shoes'),
+            AssociationField::new('shoes')->onlyOnDetail()->setTemplatePath('admin/fields/shelf_shoes.html.twig'),
+            // AssociationField::new('shoes')
+            //     ->onlyOnForms()
+            //     // on ne souhaite pas gérer l'association entre les
+            //     // shoe et la shelf dès la crétion de la shelf
+            //     ->hideWhenCreating()
+            //     ->setTemplatePath('admin/fields/shelf_shoes.html.twig')
+            //     // Ajout possible seulement pour des shoe qui
+            //     // appartiennent même propriétaire de l'cupboard
+            //     // que le member de la shelf
+            //     ->setQueryBuilder(
+            //         function (QueryBuilder $queryBuilder) {
+            //             // récupération de l'instance courante de shelf
+            //             $currentShelf = $this->getContext()->getEntity()->getInstance();
+            //             $member = $currentShelf->getMember();
+            //             $memberId = $member->getId();
+            //             // charge les seuls shoe dont le 'owner' du cupboard est le member de la galerie
+            //             $queryBuilder->leftJoin('entity.cupboard', 'i')
+            //                 ->leftJoin('i.member', 'm')
+            //                 ->andWhere('m.id = :member_id')
+            //                 ->setParameter('member_id', $memberId);
+            //             return $queryBuilder;
+            //         }
+            //     ),
+            DateTimeField::new('created')->hideOnIndex()->hideWhenCreating(),
+            DateTimeField::new('updated')->hideOnIndex()->hideWhenCreating()
         ];
     }
 

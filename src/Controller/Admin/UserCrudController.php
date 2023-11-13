@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Cupboard;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -10,22 +10,23 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 
-class CupboardCrudController extends AbstractCrudController
+class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Cupboard::class;
+        return User::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name')->setTemplatePath('admin/fields/cupboard_name.html.twig'),
+            TextField::new('email'),
+            TextField::new('password')->hideOnIndex(),
             AssociationField::new('member')->hideWhenUpdating(),
-            AssociationField::new('shoes'),
-            AssociationField::new('shoes')->onlyOnDetail()->setTemplatePath('admin/fields/cupboard_shoes.html.twig'),
+            ArrayField::new('roles'),
         ];
     }
 
@@ -35,13 +36,4 @@ class CupboardCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
-
-    // TODO
-    // public function configureCrud(Crud $crud): Crud
-    // {
-    //     // Customize the rendering of the row to grey-out the completed Todos
-    //     return $crud
-    //         ->overrideTemplate('crud/index', 'admin/crud/todo_index.html.twig')
-    //     ;
-    // }
 }
