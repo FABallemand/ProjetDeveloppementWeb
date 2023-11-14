@@ -67,7 +67,12 @@ class MemberController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function edit(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);
+        $user = $this->getUser();
+        $current_member = null;
+        if ($user) {
+            $current_member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($current_member == $member);
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot edit another member's profile!");
         }
@@ -93,7 +98,12 @@ class MemberController extends AbstractController
     #[IsGranted('IS_ADMIN')]
     public function delete(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);
+        $user = $this->getUser();
+        $current_member = null;
+        if ($user) {
+            $current_member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($current_member == $member);
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot delete another member's profile!");
         }

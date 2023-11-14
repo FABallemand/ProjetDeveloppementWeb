@@ -24,23 +24,19 @@ class ShelfController extends AbstractController
     #[Route('/', name: 'app_shelf_index', methods: ['GET'])]
     public function index(ShelfRepository $shelfRepository): Response
     {
+        $user = $this->getUser();
         $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+
         $privateShelves = array();
         $publicShelves = $shelfRepository->findBy(['published' => true]);
         if ($this->isGranted('ROLE_ADMIN')) {
-            $user = $this->getUser();
-            if ($user) {
-                $member = $user->getMember();
-            }
-            // $member = $this->getUser()?->getMember();
             $privateShelves = $shelfRepository->findAll();
         } else {
-            $user = $this->getUser();
-            if ($user) {
-                $member = $user->getMember();
-                if ($member) {
-                    $privateShelves = $shelfRepository->findBy(['member' => $member]);
-                }
+            if ($member) {
+                $privateShelves = $shelfRepository->findBy(['member' => $member]);
             }
         }
 
@@ -79,6 +75,15 @@ class ShelfController extends AbstractController
     #[Route('/new/{id}', name: 'app_shelf_newinmember', methods: ['GET', 'POST'])]
     public function newInMember(Request $request, EntityManagerInterface $entityManager, Member $member): Response
     {
+        $user = $this->getUser();
+        $current_member = null;
+        if ($user) {
+            $current_member = $user->getMember();
+        }
+        if ($current_member != $member) {
+            throw $this->createAccessDeniedException("You cannot wall-mount a shelf for another member!");
+        }
+
         $shelf = new Shelf();
         $shelf->setMember($member);
         $form = $this->createForm(ShelfType::class, $shelf, ['show_member' => false,]);
@@ -227,7 +232,12 @@ class ShelfController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function delete(Request $request, Shelf $shelf, EntityManagerInterface $entityManager): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shelf->getMember());
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $shelf->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot delete another member's shelf!");
         }

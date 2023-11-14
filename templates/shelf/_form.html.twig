@@ -13,10 +13,16 @@
         <div class="col">
             {{ form_row(form.name) }}
             {{ form_row(form.description) }}
+            {{ form_row(form.published) }}
         </div>
         <div class="col">
             {{ form_row(form.shoes) }}
         </div>
     </div>
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    
+    <div class="p-4 pt-0 border-top-0 bg-transparent">
+        <div class="text-center">
+            <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
 {{ form_end(form) }}

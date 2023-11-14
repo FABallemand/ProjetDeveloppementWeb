@@ -26,7 +26,12 @@ class CupboardController extends AbstractController
     public function index(CupboardRepository $cupboardRepository): Response
     {
         $cupboards = array();
-        $member = $this->getUser()->getMember();
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+
         if ($this->isGranted('ROLE_ADMIN')) {
             $cupboards = $cupboardRepository->findAll();
         } else {
@@ -65,6 +70,15 @@ class CupboardController extends AbstractController
     #[Route('/new/{id}', name: 'app_cupboard_newinmember', methods: ['GET', 'POST'])]
     public function newInMember(Request $request, EntityManagerInterface $entityManager, Member $member): Response
     {
+        $user = $this->getUser();
+        $current_member = null;
+        if ($user) {
+            $current_member = $user->getMember();
+        }
+        if ($current_member != $member) {
+            throw $this->createAccessDeniedException("You cannot build a cupboard for another member!");
+        }
+
         $cupboard = new Cupboard();
         $cupboard->setMember($member);
         $form = $this->createForm(CupboardType::class, $cupboard, ['display_member' => false, 'display_shoes' => true,]);
@@ -88,7 +102,12 @@ class CupboardController extends AbstractController
     #[Route('/{id}', name: 'app_cupboard_show', methods: ['GET'])]
     public function show(Cupboard $cupboard): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $cupboard->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access another member's cupboard!");
         }
@@ -134,7 +153,7 @@ class CupboardController extends AbstractController
             $member = $user->getMember();
         }
 
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $cupboard->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot edit another member's cupboard!");
         }
@@ -175,7 +194,12 @@ class CupboardController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function delete(Request $request, Cupboard $cupboard, EntityManagerInterface $entityManager): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $cupboard->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot delete another member's cupboard!");
         }

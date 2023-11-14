@@ -26,6 +26,7 @@ class ShoeController extends AbstractController
     public function index(ShoeRepository $shoeRepository): Response
     {
         $shoes = array();
+
         if ($this->isGranted('ROLE_ADMIN')) {
             $shoes = $shoeRepository->findAll();
         } else {
@@ -37,8 +38,14 @@ class ShoeController extends AbstractController
             // }
             // $shoes = $shoeRepository->findBy(['cupboard' => $shoes]);
 
-            $member = $this->getUser()->getMember();
-            $shoes = $shoeRepository->findByMember($member);
+            $user = $this->getUser();
+            $member = null;
+            if ($user) {
+                $member = $user->getMember();
+            }
+            if ($member) {
+                $shoes = $shoeRepository->findByMember($member);
+            }
         }
 
         return $this->render('shoe/index.html.twig', [
@@ -78,7 +85,12 @@ class ShoeController extends AbstractController
     #[Route('/newincupboard/{id}', name: 'app_shoe_newincupboard', methods: ['GET', 'POST'])]
     public function newInCupboard(Request $request, EntityManagerInterface $entityManager, Cupboard $cupboard): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $cupboard->getMember());
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $cupboard->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access another member's cupboard!");
         }
@@ -115,7 +127,12 @@ class ShoeController extends AbstractController
     #[Route('/{id}', name: 'app_shoe_show', methods: ['GET'])]
     public function show(Shoe $shoe): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shoe->getCupboard()->getMember());
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $shoe->getCupboard()->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot access another member's shoe from his cupboard!");
         }
@@ -165,7 +182,12 @@ class ShoeController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit(Request $request, Shoe $shoe, EntityManagerInterface $entityManager): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shoe->getCupboard()->getMember());
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $shoe->getCupboard()->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot edit another member's shoe!");
         }
@@ -191,7 +213,12 @@ class ShoeController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function delete(Request $request, Shoe $shoe, EntityManagerInterface $entityManager): Response
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $shoe->getCupboard()->getMember());
+        $user = $this->getUser();
+        $member = null;
+        if ($user) {
+            $member = $user->getMember();
+        }
+        $hasAccess = $this->isGranted('ROLE_ADMIN') || ($member == $shoe->getCupboard()->getMember());
         if (!$hasAccess) {
             throw $this->createAccessDeniedException("You cannot delete another member's shoe!");
         }
