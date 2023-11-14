@@ -256,9 +256,9 @@ make prepar_to_send
 - Create and improve commands (ordered listings, entity creation, relations and uniqueness constraint...) -> TP2
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
-- TODO: issue edit shelf from easyadmin (query builder)
-- TODO: fix login page style -> apply CSS manualy because it is not an automated form in the template...
-- TODO: private shelves are visible from member
+- TODO: private shelves are visible from member (let's consider it is a feature...)
+- TODO: custom form for shelves (checkboxes for shoes)
+- TODO: README pour évaluation
 
 ## 👤 Author
 - Fabien ALLEMAND

@@ -6,7 +6,18 @@
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{% block background %}
+			<style>
+				body {
+					background-image: url('https://wallpapercave.com/wp/wp7769158.jpg');
+					background-repeat: no-repeat;
+					background-attachment: fixed;
+					background-size: cover;
+					}
+			</style>
+		{% endblock %}
+		{# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
+		<link rel="icon" type="image/png" href="{{ asset('images/icon.png') }}">
 		{% block stylesheets %}
 			<!-- Bootstrap icons-->
 			<link
@@ -33,9 +44,10 @@
 	<body>
 		{% block menu %}
 			<!-- Navigation -->
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			{# <nav class="navbar navbar-expand-lg navbar-light bg-light"> #}
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 				<div class="container px-4 px-lg-5">
-					<a class="navbar-brand" href="{{ path('app_shelf_index') }}">TRS: Trail Running Shoes</a>
+					<a class="navbar-brand" href="{{ path('app_shelf_index') }}"><img src="{{ asset('images/icon.png') }}" style="max-width: 5%;height: auto;"> TRS: Trail Running Shoes</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
