@@ -1,5 +1,7 @@
 # 🛜 Projet Developpement Web: Trail Running Shoes
 
+Pour l'évaluation du projet voir *EVAL.md*
+
 ## 👟 Description
 As a trail runner I really want to know the best shoes to buy. In order to perform an educated purchase I need to know what each model feels on the long run: How light are the shoes? Are they comfortable? Do they have a good grip? On rock? On dirt? What about rainning conditions? Will my ankle feel supported? Which size should I get?
 
@@ -70,6 +72,7 @@ Shelf : DateTimeInterface updated
 ```
 
 ### Implementation details:
+- A user can have up to two roles among: ROLE_USER (normal user with restricted permissions), ROLE_ADMIN (administrator, has access to every page and can edit/delete every entity)
 - The interface for galeries (**Shelf**), inventories (**Cupboard**) and objects (**Shoe**) are designed to display only buttons and links to actions that the user can perform
 - The interface for memberes (**Member**) is designed to display buttons and links to all actions but the user might be prompted to login or simply encounter an error message
 - The first command should be replaced by the second, which is a relatively new feature of php. However, the first command has been retained throughout the project in order to maximise compatibility.
@@ -258,7 +261,6 @@ make prepar_to_send
 - Orphan removal -> TA1
 - TODO: private shelves are visible from member (let's consider it is a feature...)
 - TODO: custom form for shelves (checkboxes for shoes)
-- TODO: README pour évaluation
 
 ## 👤 Author
 - Fabien ALLEMAND
