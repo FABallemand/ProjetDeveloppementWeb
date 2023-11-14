@@ -53,13 +53,13 @@ class AppFixtures extends Fixture implements DependentFixtureInterface
      */
     private static function getShoesData()
     {
-        yield ["Test Brand 1", "", self::TEST_CUPBOARD_1, self::TEST_SHELF_1];
-        yield ["Test Brand 2", "Model 1", self::TEST_CUPBOARD_1, self::TEST_SHELF_2];
+        yield ["Test Brand 1", "Model 1", self::TEST_CUPBOARD_1, self::TEST_SHELF_1];
+        yield ["Test Brand 2", "Model 2", self::TEST_CUPBOARD_1, self::TEST_SHELF_2];
 
         yield ["Kalenji", "Run Active", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
         yield ["Kalenji", "kiprun XT7", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
         yield ["Asics", "Gel-tarbuco 11", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
-        yield ["Quechua", "", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
+        yield ["Quechua", "Hiking Shoes", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
         yield ["Salomon", "X Ultra Mid 3 GTX", self::SMELLY_CUPBOARD, self::BEAUTIFUL_SHELF];
     }
 

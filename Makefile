@@ -5,7 +5,7 @@ PROJECT_DIR := $(shell pwd)
 
 reload_fixtures:
 	symfony console doctrine:database:drop --force
-	rm -fr public/images/
+	rm -fr public/images/shoe/
 	symfony console doctrine:database:create
 	symfony console doctrine:schema:create
 	symfony console doctrine:fixtures:load -n

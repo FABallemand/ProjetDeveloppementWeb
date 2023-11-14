@@ -1,15 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Shelf{% endblock %}
+{% form_theme form _self %}
+{% block _project_shoes_entry_widget %}
+	{% set entity = form.parent.vars.choices[form.vars.value].data %}
+	{% set checked = form.parent.children[form.vars.value].vars.checked %}
+	<div class="form-check">
+		<input type="checkbox" id="project_shoes_{{ entity.id }}" name="project[shoes][]" class="form-check-input" value="{{ entity.id }}" {% if checked %} checked="checked" {% endif %}/>
+		<label class="form-check-label" for="project_shoes_{{ entity.id }}">
+			{% if entity.brand is empty %}(<i>Unknown brand</i>)
+			{% else %}
+				{{ entity.brand }}
+			{% endif %}
+			{% if entity.model is empty %}(<i>Unknown model</i>)
+			{% else %}
+				{{ entity.model }}
+			{% endif %}
+		</label>
+	</div>
+{% endblock %}
+{# _project_shoes_entry_widget #}
+
+{% block title %}Edit Shelf
+{% endblock %}
 
 {% block main %}
-    <h1>Edit Shelf</h1>
+	<h1>Edit Shelf</h1>
 
-    {{ include('shelf/_form.html.twig', {'button_label': 'Update'}) }}
+	{{ include('shelf/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('shelf/_delete_form.html.twig') }}
+	{{ include('shelf/_delete_form.html.twig') }}
 
-    <div class="p-4 pt-0 border-top-0 bg-transparent">
-        <div class="text-center"><a class="btn btn-info mt-auto" href="{{ path('app_shelf_index') }}">Back to shelves list</a></div>
-    </div>
+	<div class="p-4 pt-0 border-top-0 bg-transparent">
+		<div class="text-center">
+			<a class="btn btn-info mt-auto" href="{{ path('app_shelf_index') }}">Back to shelves list</a>
+		</div>
+	</div>
 {% endblock %}

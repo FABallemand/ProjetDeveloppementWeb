@@ -1,8 +1,22 @@
-{{ form_start(form) }}
+{# {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="p-4 pt-0 border-top-0 bg-transparent">
         <div class="text-center">
             <button class="btn btn-success">{{ button_label|default('Save') }}</button>
         </div>
     </div>
+{{ form_end(form) }} #}
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.shoes) }}
+        </div>
+    </div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

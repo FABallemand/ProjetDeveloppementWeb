@@ -90,7 +90,7 @@ class MemberController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_member_delete', methods: ['POST'])]
-    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[IsGranted('IS_ADMIN')]
     public function delete(Request $request, Member $member, EntityManagerInterface $entityManager): Response
     {
         $hasAccess = $this->isGranted('ROLE_ADMIN') || ($this->getUser()->getMember() == $member);

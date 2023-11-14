@@ -85,6 +85,8 @@ class ShelfController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $shelf->setCreated(new \DateTime());
+            $shelf->setUpdated(new \DateTime());
             $entityManager->persist($shelf);
             $entityManager->flush();
 

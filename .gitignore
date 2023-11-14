@@ -20,3 +20,6 @@
 ###< symfony/phpunit-bridge ###
 
 public/images/
+!public/images/icon.png
+!public/images/bg_1.jpg
+!public/images/bg_2.jpg

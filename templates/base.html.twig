@@ -9,7 +9,8 @@
 		{% block background %}
 			<style>
 				body {
-					background-image: url('https://wallpapercave.com/wp/wp7769158.jpg');
+					/* background-image: url('https://wallpapercave.com/wp/wp7769158.jpg'); */
+					background-image: url("{{ asset('images/bg_1.jpg') }}");
 					background-repeat: no-repeat;
 					background-attachment: fixed;
 					background-size: cover;
@@ -93,7 +94,7 @@
 
 				{% block body %}
 
-					<div class="container body-container">
+					<div class="container body-container" style="background: rgba(255, 255, 255, 0.4)">
 
 						<main>
 
