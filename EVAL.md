@@ -1,8 +1,8 @@
 # 🛜 Projet Developpement Web: Evaluation
 
-Pour une meilleure lisibilité rendez-vous sur: [https://github.com/FABallemand/ProjetDeveloppementWeb/EVAL.md](https://github.com/FABallemand/ProjetDeveloppementWeb/EVAL.md)
+Pour une meilleure lisibilité rendez-vous sur: [https://github.com/FABallemand/ProjetDeveloppementWeb/blob/main/EVAL.md](https://github.com/FABallemand/ProjetDeveloppementWeb/blob/main/EVAL.md)
 
-Je recommande de lire le fichier README avant de commencer l'évaluation. Pour une meilleure lisibilité rendez-vous sur: [https://github.com/FABallemand/ProjetDeveloppementWeb/README.md](https://github.com/FABallemand/ProjetDeveloppementWeb/README.md)
+Je recommande de lire le fichier *README.md* avant de commencer l'évaluation. Pour une meilleure lisibilité rendez-vous sur: [https://github.com/FABallemand/ProjetDeveloppementWeb/blob/main/README.md](https://github.com/FABallemand/ProjetDeveloppementWeb/blob/main/README.md)
 
 ## 1 Réalisation des éléments obligatoires attendus dans le projet
 Le but est de vérifier si les points suivants sont remplis (issus des éléments obligatoires de la check-list de réalisation du projet):

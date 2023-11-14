@@ -1,6 +1,6 @@
 # 🛜 Projet Developpement Web: Trail Running Shoes
 
-Pour l'évaluation du projet voir *EVAL.md*
+Pour l'évaluation du projet voir *EVAL.md* and *CHECKLIST.md*
 
 ## 👟 Description
 As a trail runner I really want to know the best shoes to buy. In order to perform an educated purchase I need to know what each model feels on the long run: How light are the shoes? Are they comfortable? Do they have a good grip? On rock? On dirt? What about rainning conditions? Will my ankle feel supported? Which size should I get?
@@ -260,7 +260,6 @@ make prepar_to_send
 - Command arguments (list by year, unique...) -> TA1
 - Orphan removal -> TA1
 - TODO: private shelves are visible from member (let's consider it is a feature...)
-- TODO: custom form for shelves (checkboxes for shoes)
 
 ## 👤 Author
 - Fabien ALLEMAND
